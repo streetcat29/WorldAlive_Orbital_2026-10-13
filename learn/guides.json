@@ -1,0 +1,286 @@
+[
+  {
+    "slug": "live-population-counters",
+    "title": "What a live population counter actually measures",
+    "dek": "A moving digit is a calculation, not a newly registered person. Reproduce the model before trusting its apparent precision.",
+    "tool": [
+      "/#map",
+      "Inspect the population map"
+    ],
+    "related": [
+      "growth-births-deaths-migration",
+      "projections-and-vintages"
+    ],
+    "sections": [
+      {
+        "title": "Start with a stock, not a stream",
+        "paragraphs": [
+          "A population estimate is a stock: the number of people assigned to a place at a reference time. A birth count is a flow over an interval. World Alive's moving population counter starts with the first kind of number and applies a mathematical growth rule. It does not receive a message whenever someone is born, dies or crosses a border. That distinction matters most when the display moves several times while you watch it.",
+          "The bundled World Bank world record gives {world_pop} people for {world_year} and an annual growth indicator of {world_growth}% for {world_growth_year}. The local bundle was generated on 7 September 2026; that file-generation date does not make its observations September figures. This guide is an initial review dated 12 October 2026, not an October population update."
+        ]
+      },
+      {
+        "title": "Reproduce one minute of movement",
+        "paragraphs": [
+          "The homepage function uses P(t) = P0 × exp(r × t), where r is the percentage rate divided by 100. It places the annual base at 1 July of the population reference year. Its model year contains 365.2425 days. At that anchor, one minute means t = 1 ÷ (365.2425 × 24 × 60). These are implementation choices for smooth movement, not evidence of exact-day measurement.",
+          "Using the unrounded bundled rate, the worked calculation is {world_pop} × [exp(({world_growth} ÷ 100) ÷ 525,949.2) − 1] ≈ {minute_gain} additional people in the first modelled minute. This is net modelled change, not births. The World Bank indicator uses logarithmic growth, not an ordinary arithmetic percentage; a discrete annual fraction g would instead convert to r = ln(1 + g). The displayed rate is rounded for reading; the builder uses the full JSON value. Later minutes differ slightly because exponential growth acts on a changing base."
+        ]
+      },
+      {
+        "title": "Smoothness is not certainty",
+        "paragraphs": [
+          "Actual demographic events are uneven. The counter replaces that unevenness with a constant rate, so its last digits describe the algorithm more precisely than they describe the world. Rounding to a whole person is useful for display but does not create person-level accuracy. A slower animation, a faster browser or a paused tab should not be interpreted as a demographic event.",
+          "A revision to the base or rate can move the whole trajectory. If tomorrow's source release revises last year's population, a changed counter is not proof that all of the difference occurred overnight. Keep the old base, source vintage and model anchor if you want to reproduce an earlier screenshot. A timestamp alone is insufficient."
+        ]
+      },
+      {
+        "title": "Read the two kinds of counter separately",
+        "paragraphs": [
+          "The population counter's growth rate and the separate birth/death displays need not reconcile. In this bundle, the world birth and death rates refer to 2024 while population growth refers to 2025. Turning a crude birth rate into births per second also assumes an exposure population and uniform timing. Neither calculation is a live registration feed. The sixty-second experience is useful for scale, not as a report of individually observed events. Crude rates are country-period averages, not each resident's probability of giving birth or dying. Their midyear-population denominator includes people with different ages and risks.",
+          "Before repeating a number, write a compact label: geography, source, reference year, model anchor and rate. If any field is absent, narrow the claim instead of filling the gap. For a national comparison, prefer the annual reference values to two counters sampled at different moments. For a city, first check whether the base is a province, settlement record or UN urban centre; a national rate is not measured local growth."
+        ]
+      }
+    ],
+    "exercise": "A friend calls the model's one-minute increase 'births during the minute I watched'. Which two corrections would you make?",
+    "answer": "Call it net modelled population change, not births; and state that it applies a constant annual rate to a reference population rather than observing that minute. Here the anchor-minute result is about {minute_gain} people. Counting births would require a separate flow measure and its own year and exposure assumptions.",
+    "takeaway": "A live counter communicates scale through a dated model. Its motion is not new evidence, and its last digits are not a census."
+  },
+  {
+    "slug": "urban-and-administrative-population",
+    "title": "Sydney and Istanbul: which population are you comparing?",
+    "dek": "A place name is not a boundary. Use the bundled city records to distinguish urban centres, provinces and settlement figures.",
+    "tool": [
+      "/cities/australia/sydney/",
+      "Inspect Sydney's population basis"
+    ],
+    "related": [
+      "reading-rankings",
+      "live-population-counters"
+    ],
+    "sections": [
+      {
+        "title": "The same heading can hide different units",
+        "paragraphs": [
+          "A city can mean a legal municipality, a province, a continuous built-up area or a broader metropolitan region. Those units answer different questions. A council budget needs the population of its jurisdiction; a study of settlement patterns may need an urban-centre definition. Neither becomes interchangeable with the other because both carry a familiar city name. The boundary is part of the measurement, not a footnote. Grid-based urban-centre classification combines population size, population density and spatial contiguity of 1 km2 cells. A headcount alone cannot establish density, land area or commuting ties; an administrative boundary is a different dimension.",
+          "The local Sydney page uses {sydney_un} people, a 2025 UN WUP urban-centre figure. Its separate GeoNames settlement record contains {sydney_geo}, with no population reference date supplied. Do not label that second number a verified City of Sydney municipality count, or silently call it Greater Sydney. The local record does not establish either interpretation."
+        ]
+      },
+      {
+        "title": "Istanbul has a different headline basis",
+        "paragraphs": [
+          "Istanbul's headline is {istanbul_admin}, identified as a province population in the bundled administrative-unit record. The record was modified on 16 April 2026, but its population reference date is unknown. A database maintenance date cannot be converted into a census date. The model anchor of 1 July 2025 likewise does not date the underlying observation.",
+          "The separate Istanbul UN urban centre is {istanbul_un} for 2025. Its GeoNames settlement value is {istanbul_geo}, also lacking a population date. The province-minus-urban-centre arithmetic is {istanbul_admin} − {istanbul_un} = {istanbul_gap}. That difference is not a measured count of rural residents: the dates differ or are unknown, and the local association does not verify that one boundary contains the other."
+        ]
+      },
+      {
+        "title": "Do the useful comparison, then limit it",
+        "paragraphs": [
+          "For a closer like-for-like comparison, use the two UN WUP 2025 urban-centre values. Istanbul divided by Sydney is {istanbul_un} ÷ {sydney_un} = {urban_ratio} times. This describes the relative population of those two delineated urban centres in that release. It does not compare provincial responsibilities, housing costs, land area or the experience of travelling across either city.",
+          "The figure deliberately avoids putting the province and settlement values into one ranked bar chart. Such a chart would invite a cleaner comparison than the metadata supports. The tabular evidence retains the rejected alternatives because knowing why a number was not used is part of a reproducible comparison. A name-and-coordinate match supports association; it does not establish a boundary relationship."
+        ]
+      },
+      {
+        "title": "Do not repair missing coverage by subtraction",
+        "paragraphs": [
+          "Istanbul's district list has {district_listed} memberships checked against the local reference list, but only {district_available} population values. The missing district value cannot safely be obtained by subtracting the available subtotal from the province headline. Dates are not reconciled, and the retained district populations have not been independently validated. Complete membership coverage and complete population coverage are different claims.",
+          "When reading either city page, first inspect the population-definition label, then the source and reference date, and only then a share or rank. The Sydney base divided by Australia's 2025 population is arithmetically reproducible, but it combines distinct source layers and is not a new official city-share statistic. Follow the separate <a href=\"/cities/turkiye/istanbul/\">Istanbul page</a> to see how the same interface can use a different basis."
+        ]
+      }
+    ],
+    "exercise": "Can you say Istanbul had {istanbul_gap} people living outside its urban centre in 2025 by subtracting the two local values?",
+    "answer": "No. The province population has no supplied reference date, and the boundary relationship is unverified. You can report the numerical difference between records, but not a 2025 outside-centre population. For a common-definition comparison with Sydney, use both 2025 UN urban-centre figures instead.",
+    "takeaway": "Compare boundary plus date plus source, not city names alone. Sydney's urban-centre headline and Istanbul's province headline are different measures."
+  },
+  {
+    "slug": "growth-births-deaths-migration",
+    "title": "Population growth is not births minus deaths alone",
+    "dek": "Separate stocks, rates and flows before explaining a change. Türkiye's local records show why a plausible calculation may still be the wrong accounting exercise.",
+    "tool": [
+      "/sixty/",
+      "Explore the sixty-second scale model"
+    ],
+    "related": [
+      "live-population-counters",
+      "reading-rankings"
+    ],
+    "sections": [
+      {
+        "title": "Begin with the accounting identity",
+        "paragraphs": [
+          "For a defined population over a defined interval, population change equals births minus deaths plus immigration minus emigration, with any statistical adjustments stated separately. A published series may include revisions or boundary changes. The identity is useful only when its pieces cover the same people and period. Subtracting numbers that happen to be available is not enough.",
+          "Population is a stock measured at a reference time. Births, deaths and migration are flows over a period. A crude birth rate is births per thousand people per year, not a percentage growth rate and not a count. A net migration value is a signed count, not the number of immigrants. Positive and negative flows must be kept in their own units until converted deliberately. The birth-rate denominator is the estimated midyear population, not the number of potential mothers. This country-period measure is not an individual annual probability."
+        ]
+      },
+      {
+        "title": "A same-series change you can reproduce",
+        "paragraphs": [
+          "The bundled World Bank history for Türkiye records {tur_2024} people in 2024 and {tur_2025} in 2025. The difference is {tur_2025} − {tur_2024} = {tur_change}. As a simple percentage of the earlier stock, {tur_change} ÷ {tur_2024} × 100 = {tur_simple}%. This is a change between annual reference populations, not necessarily a calendar-year count of registered events.",
+          "The bundle's 2025 growth indicator is {tur_growth}%. It is close to, but not exactly, that simple percentage. Using a continuous-rate convention, ln({tur_2025} ÷ {tur_2024}) × 100 = {tur_log}%. This reproduces the growth indicator to the shown precision. A small difference between a log rate and an ordinary percentage is a formula distinction, not evidence of missing people."
+        ]
+      },
+      {
+        "title": "The tempting decomposition that fails",
+        "paragraphs": [
+          "The same country object supplies a birth rate of {tur_birth} per thousand and a death rate of {tur_death} per thousand, both for 2024. Their difference is {tur_natural_per_thousand} per thousand, or {tur_natural_percent}% of an exposure population. That is a natural-change rate for the stated source period, excluding migration. It should not be renamed the 2025 population growth rate.",
+          "The bundled net migration count, {tur_migration}, refers to 2025. Combining it with those 2024 vital rates and a 2025 population would mix years and stock-versus-exposure concepts. Even if the answer looked close to {tur_change}, closeness would not validate the decomposition. If it differed, the residual would not automatically represent undocumented migration, data manipulation or an unexplained demographic event."
+        ]
+      },
+      {
+        "title": "What a defensible explanation needs",
+        "paragraphs": [
+          "To reconcile change, obtain births, deaths and net migration for one consistent interval and territorial definition, check their coverage, and identify statistical adjustments. If only annual rates are available, explain the exposure population used to estimate counts and label the result an approximation. Keep the original rate, units and reference year visible beside every derived value so another reader can reverse the calculation.",
+          "The sixty-second tool helps readers picture the scale of flows by spreading annual rates across time. It cannot tell you which observed events caused the historical change in Türkiye. Use its source labels to ask a better question: are these rates from the same year as the population? When they are not, a concise caveat is more honest than forcing all of the counters to add up."
+        ]
+      }
+    ],
+    "exercise": "What percentage corresponds to {tur_natural_per_thousand} per thousand, and why can it not be subtracted from the 2025 growth rate to estimate migration here?",
+    "answer": "Divide by ten: {tur_natural_per_thousand} per thousand is {tur_natural_percent}%. But those vital rates refer to 2024, while the growth indicator refers to 2025. The interval and exposure are not aligned. A difference between the rates would not be a verified migration estimate. Even with aligned years, a logarithmic growth rate must not be treated as an additive births-minus-deaths accounting fraction without a consistent rate convention.",
+    "takeaway": "Reproduce the stock change first. Explain its components only after matching periods, geography, units and statistical adjustments."
+  },
+  {
+    "slug": "projections-and-vintages",
+    "title": "Projections, forecasts and the problem of mixed vintages",
+    "dek": "Two values labelled 2025 can disagree without either being a live count. Keep the target year separate from the release that produced it.",
+    "tool": [
+      "/#time/2050",
+      "Explore the population timeline"
+    ],
+    "related": [
+      "live-population-counters",
+      "reading-rankings"
+    ],
+    "sections": [
+      {
+        "title": "Two dates belong on every projection",
+        "paragraphs": [
+          "A target year tells you when a population value applies. A vintage tells you which release produced it. A projection for 2050 made in one release can change in a later release because inputs or assumptions changed. Moving the computer clock to 2050 would not turn the earlier projection into an observation. Keep both dates when recording a result.",
+          "The bundled timeline identifies 1950–2023 as UN World Population Prospects 2024 estimates and 2024–2100 as that release's medium projection. The cutoff is explicit in its proj_from field. Therefore, even the timeline's 2025 point is a projection from this vintage. This label describes the bundled series, not a universal claim that every population dataset treats 2025 as projected."
+        ]
+      },
+      {
+        "title": "Compare vintages without pretending to measure growth",
+        "paragraphs": [
+          "For 2025, the World Bank world snapshot contains {world_pop}. The UN WPP 2024 medium timeline contains {un_2025}. Subtracting gives {un_2025} − {world_pop} = {vintage_gap}, or {vintage_pct}% of the World Bank value. This is a difference between source layers for the same target year, not population added between two dates.",
+          "World Bank population indicators can themselves draw on UN and national sources, so these are not necessarily independent estimates. The local World Bank file was generated on 7 September 2026; the timeline names its UN release but does not provide an equivalent retrieval timestamp. Do not call their difference an independently established error margin or claim the later local file must be more accurate."
+        ]
+      },
+      {
+        "title": "Stay inside one scenario for a change calculation",
+        "paragraphs": [
+          "Within the bundled UN medium series, the 2025 value is {un_2025} and the 2050 value is {un_2050}. The scenario change is {un_2050} − {un_2025} = {scenario_gain}, which is {scenario_pct}% of the 2025 scenario value. Both endpoints come from the same release, reducing one avoidable inconsistency. Neither endpoint is being presented here as an observed October 2026 population.",
+          "Do not replace the first endpoint with the World Bank snapshot while keeping the UN endpoint unless you explicitly describe the splice. That would combine an across-vintage difference with the projected trajectory. It might produce a useful custom planning calculation, but it would no longer be the change shown by the unmodified UN scenario."
+        ]
+      },
+      {
+        "title": "A scenario is conditional, not a promise",
+        "paragraphs": [
+          "A population projection follows assumptions about fertility, mortality and migration. A forecast usually emphasizes what its maker expects to happen; terminology can overlap, so inspect the published method rather than relying on the word alone. The UN medium series should not be treated as a guarantee, a countdown to a fixed outcome or a claim about any individual's future.",
+          "This bundle contains one medium path, not the full range of UN variants or uncertainty intervals. We therefore do not invent high and low bands around the figure. A smooth line is not an uncertainty assessment. For planning that depends on plausible extremes, consult the official release's alternatives and methodology rather than manufacturing a range from the difference between World Bank and UN values.",
+          "A useful saved comparison names the dataset, release, scenario, target years and any splice. When revisiting it, check whether the release changed before describing the change as a new demographic trend. This is a practical reason to keep historical snapshots labelled instead of automatically relabelling old content with today's date."
+        ]
+      }
+    ],
+    "exercise": "Is {vintage_gap}, the difference between the two 2025 world values, evidence that the world grew by that amount between the World Bank and UN snapshots?",
+    "answer": "No. Both values target 2025 but come from different source layers and vintages. The subtraction measures disagreement between those values, not growth over time. For the worked 2025–2050 scenario change, use both endpoints from the same UN medium series.",
+    "takeaway": "A defensible projection comparison preserves release, scenario and target year. Same-year disagreement is not growth, and one medium path is not an uncertainty interval."
+  },
+  {
+    "slug": "age-structure-and-life-expectancy",
+    "title": "An older population does not predict your lifespan",
+    "dek": "Japan's age shares and life expectancy answer different questions. Read them without turning a population statistic into a personal countdown.",
+    "tool": [
+      "/countries/japan/",
+      "Inspect Japan's demographic indicators"
+    ],
+    "related": [
+      "growth-births-deaths-migration",
+      "reading-rankings"
+    ],
+    "sections": [
+      {
+        "title": "Composition and mortality are different measurements",
+        "paragraphs": [
+          "Age structure describes how a population is distributed across ages at a reference time. Life expectancy summarizes a mortality schedule. A country can have a large older population because of past birth patterns, migration and survival; none of these is captured fully by a single life-expectancy number. Reading the two indicators side by side is useful, but treating one as a direct explanation of the other skips important evidence.",
+          "Japan's bundled World Bank record has {japan_young}% aged 0–14 and {japan_old}% aged 65 or above, both for 2025. The same record reports life expectancy at birth of {japan_le} years for 2024. The dates are different. The adjacent display does not make these simultaneous measurements, and this historical snapshot is not an October 2026 estimate."
+        ]
+      },
+      {
+        "title": "Build an age-structure measure transparently",
+        "paragraphs": [
+          "Assuming the two reported age shares partition the same total population with the middle group, the implied age 15–64 share is 100 − {japan_young} − {japan_old} = {japan_middle}%. The builder uses full-precision values before rounding. This is a share, not an employment rate. Many people aged 15–64 do not work, while some older people do.",
+          "A simple old-age dependency ratio is 100 times the 65-plus share divided by the 15-64 share. Using the full-precision JSON shares gives {japan_dependency}; rounding the inputs first can change the result. Read it as about {japan_dependency} people aged 65 or above per 100 people aged 15–64. The denominator is not the whole population. It is therefore different from saying {japan_old}% of residents are 65 or above."
+        ]
+      },
+      {
+        "title": "What the word dependency does not establish",
+        "paragraphs": [
+          "This conventional demographic ratio is an age-based summary, not a count of financially dependent people or taxpayers. It does not measure hours worked, household support, disability, pensions, wealth or unpaid care. Two populations with the same ratio could have very different economic arrangements. Calling the ratio a fiscal burden without additional evidence would turn a descriptive measure into an unsupported causal claim.",
+          "The age thresholds are also conventions. A reader could choose different ages for a specific planning question, but would need compatible data and a clear new label. The three broad groups in this bundle cannot reveal the population in every narrower age band. Do not interpolate an age distribution that the file does not contain just to make a more detailed-looking chart."
+        ]
+      },
+      {
+        "title": "Life expectancy is not years left to live",
+        "paragraphs": [
+          "Period life expectancy at birth describes the average years a hypothetical newborn cohort would live if the period's age-specific mortality rates applied throughout life. It is not the average current age, the typical age of everyone who died that year, or a maximum human lifespan. It is also not a personalised estimate for someone who has already survived to adulthood. It is a country-period summary, not a per-person countdown.",
+          "Subtracting your age from Japan's {japan_le}-year value does not calculate your remaining lifespan. Remaining life expectancy at a given age requires an age-specific life table; a personal assessment would require more than a national average. Mortality conditions can also change over a real cohort's lifetime. World Alive's historical and personal tools should be read as context, never as a health forecast.",
+          "For a comparison, match the age-share years separately from the life-expectancy years and keep both visible. If the values move together, describe the association before considering an explanation. You would need additional evidence to separate survival improvements from past fertility changes or migration."
+        ]
+      }
+    ],
+    "exercise": "Which denominator produces the old-age dependency ratio: all residents, or residents aged 15–64? Does that denominator identify workers?",
+    "answer": "Use the implied 15–64 share, {japan_middle}%, giving {japan_dependency} people aged 65 or above per 100 aged 15–64. The denominator is an age group, not the workforce. Using the whole population instead would return the 65-plus population share, a different measure.",
+    "takeaway": "Age shares describe composition; life expectancy describes mortality conditions. Neither is an individual lifespan prediction or a direct measure of economic dependence."
+  },
+  {
+    "slug": "reading-rankings",
+    "title": "How to read population rankings without inventing a story",
+    "dek": "Choose a common year and definition, inspect the denominator, and separate a numerical ordering from a causal explanation.",
+    "tool": [
+      "/compare/japan-vs-germany/",
+      "Inspect the Japan–Germany comparison"
+    ],
+    "related": [
+      "urban-and-administrative-population",
+      "age-structure-and-life-expectancy"
+    ],
+    "sections": [
+      {
+        "title": "A ranking answers a narrower question than it appears to",
+        "paragraphs": [
+          "A rank orders a selected set by a selected measure. It does not automatically identify the best place to live, the strongest economy or the most successful public policy. Before reading the first row, ask what entered the set: countries and territories, only sovereign states, provinces, or UN urban centres? A database rank describes the records included, not necessarily every place in the world.",
+          "Next ask whether all rows use a common year. A latest-available ranking can place one country's recent value beside another country's older observation. That may be a useful availability view, but it is not a single-year league table. Missing values are not zero and should not be sent to the bottom as though they measured absence."
+        ]
+      },
+      {
+        "title": "Make one common-year comparison",
+        "paragraphs": [
+          "The bundled World Bank history contains 2024 population for both Japan and Germany: {japan_2024} and {germany_2024}, respectively. Japan minus Germany is {japan_2024} − {germany_2024} = {comparison_gap}. Japan's population divided by Germany's is {comparison_ratio} times. This is a comparison of national population totals in the same series and year, not of land area, density or city size.",
+          "The same country records report 2024 life expectancy at birth of {japan_le} years for Japan and {germany_le} for Germany. The difference is {life_gap} years. Matching 2024 for both indicators avoids the bundle's default mixture of 2025 population and 2024 life expectancy. It does not establish that having a larger population causes longer life expectancy."
+        ]
+      },
+      {
+        "title": "Choose a denominator before choosing an adjective",
+        "paragraphs": [
+          "A difference and a ratio are both valid but answer different questions. {comparison_gap} is an absolute population gap; {comparison_ratio} times expresses scale relative to Germany. If you reverse the denominator, you get a different relative statement, not contradictory evidence. State the reference explicitly instead of writing that one country is a certain percentage 'different' without saying from what.",
+          "Use units that fit the measure. Life expectancy differences are measured in years, not percentage points. Age-share differences are percentage points when one percentage is subtracted from another. Population density requires compatible population and land-area definitions, and the current bundle's area fields can refer to older years. A polished table does not repair an inconsistent denominator."
+        ]
+      },
+      {
+        "title": "Do not let order do the work of explanation",
+        "paragraphs": [
+          "The two-country example describes a pair, not a global ranking and not a statistical test. It cannot identify the cause of a life-expectancy gap. Age-specific mortality, historical circumstances, measurement practices and many other factors could matter. Selecting two countries after noticing their values also makes it easy to find a persuasive-looking pattern by chance. An explanatory claim requires a design that addresses alternatives, not just another decimal place.",
+          "For a larger ranking, preserve the inclusion rule and the values behind each position. Check ties at the displayed precision; a strict numerical order can exaggerate a difference smaller than the rounding shown to readers. Track source revisions separately from changes in real-world conditions. Moving up a place can happen because another record changed or because the eligible set changed."
+        ]
+      },
+      {
+        "title": "Leave an audit trail a reader can reuse",
+        "paragraphs": [
+          "A useful comparison note includes measure, units, geography, common reference year, source release where known, missing-data rule and denominator. Save the values as well as the ranks. On the <a href=\"/rankings/\">rankings directory</a>, treat category labels as the beginning of this check, not its conclusion. In the comparison tool, inspect the year under each metric before turning a visual contrast into a sentence."
+        ]
+      }
+    ],
+    "exercise": "Japan is larger and has higher life expectancy in this 2024 pair. Does that prove that increasing a country's population raises life expectancy?",
+    "answer": "No. This is a descriptive two-country comparison with matched years, not evidence of a causal effect. The population gap is {comparison_gap} people and the life-expectancy gap is {life_gap} years; neither calculation identifies why those differences exist.",
+    "takeaway": "A trustworthy ranking states its eligible set, year, definition and denominator. An ordering is not a causal explanation or a quality-of-life verdict."
+  }
+]

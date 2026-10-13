@@ -1,0 +1,416 @@
+{
+  "reviewDate": "2026-10-12",
+  "datePolicy": "Initial review, never updated from the system clock",
+  "byline": "World Alive editorial notes",
+  "disclosure": "AI-assisted explanation; calculations checked against bundled data; not independent source validation.",
+  "sourceValidation": "Fresh fetches on 2026-10-12: landing/metadata text only; WPP title only. No upstream numerical, boundary or legal validation.",
+  "inputs": {
+    "world.json": {
+      "path": "/data/world.json",
+      "sha256": "65aa95da6b558f00cc82bb5595f54e91676e10e18a4183468be109ead60fcd66"
+    },
+    "timeline.json": {
+      "path": "/data/timeline.json",
+      "sha256": "3c90e7212a1846379967ebf01929acbf242cd2a56393d0d12e4999c63293a033"
+    },
+    "city_page_records.json": {
+      "path": "/data/city_page_records.json",
+      "sha256": "435a45a31b93cfc8a51edef15d92c45d049f59400580f277f671a720657cda07"
+    },
+    "cities/AUS.json": {
+      "path": "/data/cities/AUS.json",
+      "sha256": "8ca4021058e2ae2b5b81dbbb325a92f470a7b6b6956e3c64577145b62b55b43c"
+    },
+    "cities/TUR.json": {
+      "path": "/data/cities/TUR.json",
+      "sha256": "99c877900fe1aeac56b84d93303ed5d3fb1345723059c8e11e9653a024a30f95"
+    }
+  },
+  "derived": {
+    "world_pop": 8215424893,
+    "world_year": 2025,
+    "world_growth": 0.911303701154864,
+    "world_growth_year": 2025,
+    "minute_gain": 142.34734412394832,
+    "sydney_un": 4150917,
+    "sydney_geo": 5638830,
+    "istanbul_admin": 15907951,
+    "istanbul_un": 15014763,
+    "istanbul_geo": 15701602,
+    "istanbul_gap": 893188,
+    "sydney_gap": 1487913,
+    "urban_ratio": 3.617215906750243,
+    "district_listed": 39,
+    "district_available": 38,
+    "tur_2024": 85518661,
+    "tur_2025": 85878556,
+    "tur_change": 359895,
+    "tur_simple": 0.4208379735973544,
+    "tur_log": 0.419954927193411,
+    "tur_growth": 0.419954927193433,
+    "tur_birth": 11,
+    "tur_death": 5.7,
+    "tur_natural_per_thousand": 5.3,
+    "tur_natural_percent": 0.53,
+    "tur_migration": -258205,
+    "un_2025": 8231613067,
+    "un_2050": 9664378585,
+    "vintage_gap": 16188174,
+    "vintage_pct": 0.19704609573867843,
+    "scenario_gain": 1432765518,
+    "scenario_pct": 17.405647062589267,
+    "japan_young": 11.2383980634698,
+    "japan_old": 29.9940966737423,
+    "japan_middle": 58.7675052627879,
+    "japan_dependency": 51.03857402082852,
+    "japan_le": 84.0363414634146,
+    "germany_le": 80.7926829268293,
+    "japan_2024": 123975371,
+    "germany_2024": 83516593,
+    "comparison_gap": 40458778,
+    "comparison_ratio": 1.4844399962531996,
+    "life_gap": 3.2436585365853006
+  },
+  "display": {
+    "world_pop": "8,215,424,893",
+    "world_year": "2025",
+    "world_growth": "0.9113",
+    "world_growth_year": "2025",
+    "minute_gain": "142.3",
+    "sydney_un": "4,150,917",
+    "sydney_geo": "5,638,830",
+    "istanbul_admin": "15,907,951",
+    "istanbul_un": "15,014,763",
+    "istanbul_geo": "15,701,602",
+    "istanbul_gap": "893,188",
+    "sydney_gap": "1,487,913",
+    "urban_ratio": "3.62",
+    "district_listed": "39",
+    "district_available": "38",
+    "tur_2024": "85,518,661",
+    "tur_2025": "85,878,556",
+    "tur_change": "359,895",
+    "tur_simple": "0.4208",
+    "tur_log": "0.4200",
+    "tur_growth": "0.4200",
+    "tur_birth": "11",
+    "tur_death": "5.7",
+    "tur_natural_per_thousand": "5.30",
+    "tur_natural_percent": "0.53",
+    "tur_migration": "-258,205",
+    "un_2025": "8,231,613,067",
+    "un_2050": "9,664,378,585",
+    "vintage_gap": "16,188,174",
+    "vintage_pct": "0.20",
+    "scenario_gain": "1,432,765,518",
+    "scenario_pct": "17.41",
+    "japan_young": "11.24",
+    "japan_old": "29.99",
+    "japan_middle": "58.77",
+    "japan_dependency": "51.04",
+    "japan_le": "84.036",
+    "germany_le": "80.793",
+    "japan_2024": "123,975,371",
+    "germany_2024": "83,516,593",
+    "comparison_gap": "40,458,778",
+    "comparison_ratio": "1.48",
+    "life_gap": "3.24"
+  },
+  "sources": {
+    "population": {
+      "name": "World Bank: Population, total (SP.POP.TOTL)",
+      "url": "https://data.worldbank.org/indicator/SP.POP.TOTL",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "Indicator title, listed upstream providers and CC BY-4.0 label read; values not compared."
+    },
+    "growth": {
+      "name": "World Bank: Population growth (SP.POP.GROW)",
+      "url": "https://data.worldbank.org/indicator/SP.POP.GROW",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "Annual-percent indicator title, derived-from-population attribution and CC BY-4.0 label read; values not compared."
+    },
+    "birth": {
+      "name": "World Bank: Crude birth rate (SP.DYN.CBRT.IN)",
+      "url": "https://data.worldbank.org/indicator/SP.DYN.CBRT.IN",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "Per-1,000-people indicator title and CC BY-4.0 label read; values not compared."
+    },
+    "death": {
+      "name": "World Bank: Crude death rate (SP.DYN.CDRT.IN)",
+      "url": "https://data.worldbank.org/indicator/SP.DYN.CDRT.IN",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "Per-1,000-people indicator title and CC BY-4.0 label read; values not compared."
+    },
+    "migration": {
+      "name": "World Bank: Net migration (SM.POP.NETM)",
+      "url": "https://data.worldbank.org/indicator/SM.POP.NETM",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "Net migration indicator title, UN WPP attribution and CC BY-4.0 label read; values not compared."
+    },
+    "life": {
+      "name": "World Bank: Life expectancy at birth (SP.DYN.LE00.IN)",
+      "url": "https://data.worldbank.org/indicator/SP.DYN.LE00.IN",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "Life expectancy at birth, total (years) indicator title and CC BY-4.0 label read; values not compared."
+    },
+    "older": {
+      "name": "World Bank: Population ages 65 and above (SP.POP.65UP.TO.ZS)",
+      "url": "https://data.worldbank.org/indicator/SP.POP.65UP.TO.ZS",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "Ages 65 and above share indicator title and CC BY-4.0 label read; values not compared."
+    },
+    "younger": {
+      "name": "World Bank: Population ages 0–14 (SP.POP.0014.TO.ZS)",
+      "url": "https://data.worldbank.org/indicator/SP.POP.0014.TO.ZS",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "Ages 0-14 share indicator title and CC BY-4.0 label read; values not compared."
+    },
+    "wpp": {
+      "name": "UN DESA: World Population Prospects 2024",
+      "url": "https://population.un.org/wpp/",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "Landing title only; extracted response had no substantive body. WPP numerical release and download paths not verified in this retry. Prior undocumented 404 claims removed."
+    },
+    "wup": {
+      "name": "UN DESA: World Urbanization Prospects 2025",
+      "url": "https://population.un.org/wup/",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "Landing body identifies 2025 Revision and consistency with WPP 2024; city values not compared."
+    },
+    "geo": {
+      "name": "GeoNames: database and attribution",
+      "url": "https://www.geonames.org/about.html",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "About body describes aggregation, editable records and creative-commons attribution; record dates/populations not validated."
+    },
+    "growth_method": {
+      "name": "World Bank: growth methodology",
+      "url": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/SP.POP.GROW",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "World Bank metadata explicitly defines exponential midyear growth r=ln(pn/p0)/n; not discrete geometric growth."
+    },
+    "birth_method": {
+      "name": "World Bank: crude birth rate methodology",
+      "url": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/SP.DYN.CBRT.IN",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "World Bank metadata defines annual live births per 1,000 midyear population; exposure denominator and natural increase explained."
+    },
+    "life_method": {
+      "name": "World Bank: period life expectancy methodology",
+      "url": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/SP.DYN.LE00.IN",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "World Bank metadata defines period life-table expectancy under fixed age-specific mortality; not an individual's experienced cohort lifespan."
+    },
+    "wup_method": {
+      "name": "UN WUP: definition issues",
+      "url": "https://population.un.org/wup/methodology/",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "UN definition-issues page explains changing physical extent, administrative boundaries and historical definition consistency; no polygon validation."
+    },
+    "urban_definition": {
+      "name": "European Commission GHSL: Degree of Urbanisation dimensions",
+      "url": "https://human-settlement.emergency.copernicus.eu/degurbaDefinitions.php",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "European Commission GHSL definition page states 1 km2 grid cells, population density, contiguity and population size dimensions; numerical thresholds not asserted."
+    },
+    "geo_terms": {
+      "name": "GeoNames: data terms",
+      "url": "https://www.geonames.org/export/",
+      "linkCheckedOn": "2026-10-12",
+      "verificationScope": "GeoNames export terms show cc-by attribution and as-is/no accuracy, timeliness or completeness warranty; fetched text does not establish licence version."
+    }
+  },
+  "integration": {
+    "entry": "/learn/",
+    "sourceReference": "/methodology/",
+    "privacyReference": "/privacy/",
+    "correctionReference": "/corrections/",
+    "unownedFilesModified": false,
+    "consentPolicy": "Preserve existing valid consent asset block; no GA attestation. Main reruns install_privacy.py after generators.",
+    "sitemapAndNavigation": "Main integrator only; not changed by this builder"
+  },
+  "guides": [
+    {
+      "slug": "live-population-counters",
+      "title": "What a live population counter actually measures",
+      "url": "/learn/live-population-counters/",
+      "wordCountLearningText": 648,
+      "countRule": "Paragraphs, exercise, answer and takeaway; excludes headings, evidence figure, sources and shared chrome.",
+      "tool": "/#map",
+      "related": [
+        "/learn/growth-births-deaths-migration/",
+        "/learn/projections-and-vintages/"
+      ],
+      "sources": [
+        "population",
+        "growth",
+        "birth",
+        "death",
+        "growth_method",
+        "birth_method"
+      ],
+      "referenceDates": [
+        "2025 base and growth",
+        "2024 vital rates context"
+      ]
+    },
+    {
+      "slug": "urban-and-administrative-population",
+      "title": "Sydney and Istanbul: which population are you comparing?",
+      "url": "/learn/urban-and-administrative-population/",
+      "wordCountLearningText": 600,
+      "countRule": "Paragraphs, exercise, answer and takeaway; excludes headings, evidence figure, sources and shared chrome.",
+      "tool": "/cities/australia/sydney/",
+      "related": [
+        "/learn/reading-rankings/",
+        "/learn/live-population-counters/"
+      ],
+      "sources": [
+        "wup",
+        "geo",
+        "wup_method",
+        "urban_definition",
+        "geo_terms"
+      ],
+      "referenceDates": [
+        "2025 UN WUP urban centres",
+        "GeoNames population dates unknown; Istanbul modification 2026-04-16 is not population date"
+      ]
+    },
+    {
+      "slug": "growth-births-deaths-migration",
+      "title": "Population growth is not births minus deaths alone",
+      "url": "/learn/growth-births-deaths-migration/",
+      "wordCountLearningText": 617,
+      "countRule": "Paragraphs, exercise, answer and takeaway; excludes headings, evidence figure, sources and shared chrome.",
+      "tool": "/sixty/",
+      "related": [
+        "/learn/live-population-counters/",
+        "/learn/reading-rankings/"
+      ],
+      "sources": [
+        "population",
+        "growth",
+        "birth",
+        "death",
+        "migration",
+        "growth_method",
+        "birth_method"
+      ],
+      "referenceDates": [
+        "2024–2025 population",
+        "2024 birth/death rates",
+        "2025 growth/migration"
+      ]
+    },
+    {
+      "slug": "projections-and-vintages",
+      "title": "Projections, forecasts and the problem of mixed vintages",
+      "url": "/learn/projections-and-vintages/",
+      "wordCountLearningText": 628,
+      "countRule": "Paragraphs, exercise, answer and takeaway; excludes headings, evidence figure, sources and shared chrome.",
+      "tool": "/#time/2050",
+      "related": [
+        "/learn/live-population-counters/",
+        "/learn/reading-rankings/"
+      ],
+      "sources": [
+        "population",
+        "wpp"
+      ],
+      "referenceDates": [
+        "2025 World Bank snapshot",
+        "UN WPP 2024 medium targets 2025 and 2050"
+      ]
+    },
+    {
+      "slug": "age-structure-and-life-expectancy",
+      "title": "An older population does not predict your lifespan",
+      "url": "/learn/age-structure-and-life-expectancy/",
+      "wordCountLearningText": 618,
+      "countRule": "Paragraphs, exercise, answer and takeaway; excludes headings, evidence figure, sources and shared chrome.",
+      "tool": "/countries/japan/",
+      "related": [
+        "/learn/growth-births-deaths-migration/",
+        "/learn/reading-rankings/"
+      ],
+      "sources": [
+        "older",
+        "younger",
+        "life",
+        "life_method"
+      ],
+      "referenceDates": [
+        "2025 age shares",
+        "2024 life expectancy"
+      ]
+    },
+    {
+      "slug": "reading-rankings",
+      "title": "How to read population rankings without inventing a story",
+      "url": "/learn/reading-rankings/",
+      "wordCountLearningText": 626,
+      "countRule": "Paragraphs, exercise, answer and takeaway; excludes headings, evidence figure, sources and shared chrome.",
+      "tool": "/compare/japan-vs-germany/",
+      "related": [
+        "/learn/urban-and-administrative-population/",
+        "/learn/age-structure-and-life-expectancy/"
+      ],
+      "sources": [
+        "population",
+        "life",
+        "life_method"
+      ],
+      "referenceDates": [
+        "2024 population and life expectancy"
+      ]
+    }
+  ],
+  "formulas": {
+    "minute_gain": "world.pop * expm1(world.growth / 100 / (365.2425 * 24 * 60)); evaluated at 2025-07-01 model anchor, not current time",
+    "sydney_gap": "Sydney.pg - Sydney.p; record difference only, dates/definitions not aligned",
+    "tur_natural_per_thousand": "TUR.birthRate - TUR.deathRate; both 2024 per thousand midyear population",
+    "urban_ratio": "cities/TUR.json Istanbul.pun / cities/AUS.json Sydney.p; both UN WUP 2025 urban centres",
+    "istanbul_gap": "Istanbul.p - Istanbul.pun; difference between records only, not population outside an urban boundary",
+    "tur_change": "countries.TUR.hist[2025] - countries.TUR.hist[2024]",
+    "tur_simple": "(TUR.hist[2025] / TUR.hist[2024] - 1) * 100",
+    "tur_log": "ln(TUR.hist[2025] / TUR.hist[2024]) * 100",
+    "tur_natural_percent": "(TUR.birthRate - TUR.deathRate) / 10; 2024 rates, not a 2025 decomposition",
+    "vintage_gap": "timeline.world[years.index(2025)] - world.world.pop; same target year, different source layers",
+    "vintage_pct": "vintage_gap / world.world.pop * 100",
+    "scenario_gain": "timeline.world[years.index(2050)] - timeline.world[years.index(2025)]",
+    "scenario_pct": "scenario_gain / timeline.world[years.index(2025)] * 100",
+    "japan_middle": "100 - JPN.age0014 - JPN.age65up; same 2025 reference",
+    "japan_dependency": "JPN.age65up / japan_middle * 100; per 100 aged 15–64, not per 100 workers",
+    "comparison_gap": "JPN.hist[2024] - DEU.hist[2024]",
+    "comparison_ratio": "JPN.hist[2024] / DEU.hist[2024]",
+    "life_gap": "JPN.lifeExp - DEU.lifeExp; both 2024"
+  },
+  "verificationRecord": "/learn/source-verification.json",
+  "additionalLinkVerification": {
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "scope": "Deed - Attribution 4.0 International title and canonical URL only; no legal certification."
+  },
+  "editorialInputs": {
+    "guides.json": "d70e199560c54c9a1a7990bbd15feb48f282016ed32e3cf5519343b99c949118",
+    "source-verification.json": "244b78f8611e9d9f9702b84f469de9296d938c36dbb333d52a9191b043f60893",
+    "learn.css": "bedd6dedf3463122bad54d31fb26a0c3483c45cd8ad30e5aed0c145e993416a1",
+    "theme.js": "37d413ebcf004a466788c803431794fd520df13786fe746dae64503724926d46"
+  },
+  "membershipReference": {
+    "path": "reference_il_ilce.csv",
+    "sha256": "2019892c9665350e47cb792b01d50fc4abd997e82df07df414dff2efcbd4fc2e",
+    "scope": "39 Istanbul district names match; 38 non-null populations; no population-value validation"
+  },
+  "totals": {
+    "guides": 6,
+    "htmlPages": 7,
+    "learningTextWords": 3737,
+    "derivedFields": 43,
+    "formulas": 18,
+    "sourceUrls": 17,
+    "dataJsonInputs": 5,
+    "evidenceFigures": 6,
+    "nativeExercises": 6
+  }
+}

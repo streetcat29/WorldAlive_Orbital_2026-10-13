@@ -1,0 +1,27 @@
+{
+  "checkedOn": "2026-10-12",
+  "method": "Actual fetch_external_page calls during resumed review; extracted landing/metadata text only. No upstream numerical dataset comparison or boundary validation.",
+  "sources": {
+    "population": "Indicator title, listed upstream providers and CC BY-4.0 label read; values not compared.",
+    "growth": "Annual-percent indicator title, derived-from-population attribution and CC BY-4.0 label read; values not compared.",
+    "birth": "Per-1,000-people indicator title and CC BY-4.0 label read; values not compared.",
+    "death": "Per-1,000-people indicator title and CC BY-4.0 label read; values not compared.",
+    "migration": "Net migration indicator title, UN WPP attribution and CC BY-4.0 label read; values not compared.",
+    "life": "Life expectancy at birth, total (years) indicator title and CC BY-4.0 label read; values not compared.",
+    "older": "Ages 65 and above share indicator title and CC BY-4.0 label read; values not compared.",
+    "younger": "Ages 0-14 share indicator title and CC BY-4.0 label read; values not compared.",
+    "wpp": "Landing title only; extracted response had no substantive body. WPP numerical release and download paths not verified in this retry. Prior undocumented 404 claims removed.",
+    "wup": "Landing body identifies 2025 Revision and consistency with WPP 2024; city values not compared.",
+    "geo": "About body describes aggregation, editable records and creative-commons attribution; record dates/populations not validated.",
+    "growth_method": "World Bank metadata explicitly defines exponential midyear growth r=ln(pn/p0)/n; not discrete geometric growth.",
+    "birth_method": "World Bank metadata defines annual live births per 1,000 midyear population; exposure denominator and natural increase explained.",
+    "life_method": "World Bank metadata defines period life-table expectancy under fixed age-specific mortality; not an individual's experienced cohort lifespan.",
+    "wup_method": "UN definition-issues page explains changing physical extent, administrative boundaries and historical definition consistency; no polygon validation.",
+    "urban_definition": "European Commission GHSL definition page states 1 km2 grid cells, population density, contiguity and population size dimensions; numerical thresholds not asserted.",
+    "geo_terms": "GeoNames export terms show cc-by attribution and as-is/no accuracy, timeliness or completeness warranty; fetched text does not establish licence version."
+  },
+  "additionalLink": {
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "scope": "Deed - Attribution 4.0 International title and canonical URL only; no legal certification."
+  }
+}

@@ -1,0 +1,60 @@
+/* All selectors are scoped to the isolated learning surface. No Watch selectors. */
+.wa-learn{--learn-bg:#0b1421;--learn-panel:#152338;--learn-text:#edf3fc;--learn-muted:#b8c7dc;--learn-link:#86d9ef;--learn-line:#526782;--learn-accent:#81c9b2;margin:0;background:var(--learn-bg);color:var(--learn-text);font:1.075rem/1.75 system-ui,-apple-system,"Segoe UI",sans-serif;overflow-wrap:anywhere;color-scheme:dark}
+html[data-theme="light"] .wa-learn{--learn-bg:#f8fafc;--learn-panel:#eaf0f6;--learn-text:#172a40;--learn-muted:#42536b;--learn-link:#075b75;--learn-line:#8294ab;--learn-accent:#206650;color-scheme:light}
+.wa-learn *{box-sizing:border-box}
+.wa-learn [hidden]{display:none!important}
+.wa-learn a{color:var(--learn-link);text-underline-offset:.18em;text-decoration-thickness:.08em}
+.wa-learn a:hover{text-decoration-thickness:.15em}
+.wa-learn :focus-visible{outline:3px solid var(--learn-accent);outline-offset:4px}
+.wa-learn .learn-skip{position:absolute;top:.5rem;left:1rem;z-index:10;padding:.5rem 1rem;background:var(--learn-panel);transform:translateY(-180%)}
+.wa-learn .learn-skip:focus{transform:none}
+.wa-learn .learn-header{max-width:76rem;margin:auto;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem 2rem;flex-wrap:wrap;border-bottom:1px solid var(--learn-line)}
+.wa-learn .learn-logo{display:inline-flex;align-items:center;gap:.65rem;font-size:.94rem;font-weight:800;letter-spacing:.09em;text-decoration:none;color:var(--learn-text)}
+.wa-learn .learn-logo svg{flex:none}
+.wa-learn .learn-header nav{display:flex;gap:.4rem 1.35rem;flex-wrap:wrap;margin-left:auto;font-size:.95rem}
+.wa-learn .learn-header nav a{padding:.45rem 0}
+.wa-learn .learn-header nav [aria-current]{font-weight:750}
+.wa-learn button{font:inherit;font-size:.9rem;border:1px solid var(--learn-line);border-radius:.5rem;color:var(--learn-text);background:var(--learn-panel);padding:.5rem .8rem;min-height:44px;cursor:pointer}
+.wa-learn main{max-width:53rem;margin:0 auto;padding:2.4rem 1.5rem 3rem;min-width:0}
+.wa-learn h1,.wa-learn h2,.wa-learn h3{line-height:1.2;text-wrap:balance;color:var(--learn-text)}
+.wa-learn h1{font-size:clamp(2rem,4.6vw,3.15rem);letter-spacing:-.035em;margin:.5rem 0 1.25rem}
+.wa-learn h2{font-size:1.5rem;margin:2.4rem 0 .9rem}
+.wa-learn h3{font-size:1.12rem;margin:.5rem 0 .8rem}
+.wa-learn p{margin:.9rem 0 1.2rem}
+.wa-learn .learn-breadcrumb{font-size:.83rem;line-height:1.6;color:var(--learn-muted);margin-bottom:1.6rem}
+.wa-learn .learn-kicker{text-transform:uppercase;letter-spacing:.09em;font-size:.78rem;color:var(--learn-accent);font-weight:750}
+.wa-learn .learn-dek{font-size:1.19rem;line-height:1.55;color:var(--learn-muted)}
+.wa-learn .learn-meta,.wa-learn .learn-small{font-size:.86rem;color:var(--learn-muted)}
+.wa-learn .learn-disclosure{font-size:.87rem;border-left:3px solid var(--learn-accent);padding:.4rem 0 .4rem 1rem;color:var(--learn-muted)}
+.wa-learn .learn-evidence{margin:2rem 0;padding:1.15rem;background:var(--learn-panel);border:1px solid var(--learn-line);border-radius:.8rem;min-width:0}
+.wa-learn figcaption{font-size:1.05rem;line-height:1.5;margin-bottom:.8rem}
+.wa-learn .learn-chart{display:block;width:100%;height:auto;margin:1rem 0;color:var(--learn-text)}
+.wa-learn .learn-chart text{fill:currentColor;font:18px system-ui,sans-serif}
+.wa-learn .learn-bar{fill:var(--learn-accent)}
+.wa-learn .learn-table{overflow-x:auto;max-width:100%;border:1px solid var(--learn-line);border-radius:.3rem}
+.wa-learn table{border-collapse:collapse;width:100%;min-width:560px;font-size:.88rem;line-height:1.5}
+.wa-learn caption{text-align:left;padding:.65rem .8rem;color:var(--learn-muted)}
+.wa-learn th,.wa-learn td{text-align:left;vertical-align:top;padding:.75rem;border-top:1px solid var(--learn-line)}
+.wa-learn thead th{background:#080d15;color:#fff}
+.wa-learn tbody th{font-weight:600;width:33%}
+.wa-learn td:nth-child(2){font-variant-numeric:tabular-nums}
+.wa-learn .learn-source{font-size:.83rem;color:var(--learn-muted);line-height:1.65;margin-bottom:0}
+.wa-learn .learn-exercise,.wa-learn .learn-takeaway{background:var(--learn-panel);padding:1.2rem 1.3rem;border-left:4px solid var(--learn-accent);border-radius:.4rem;margin:2rem 0}
+.wa-learn .learn-exercise h2,.wa-learn .learn-takeaway h2{margin-top:0}
+.wa-learn summary{cursor:pointer;min-height:44px;padding:.65rem .3rem;font-weight:650;color:var(--learn-link)}
+.wa-learn details{border-top:1px solid var(--learn-line);border-bottom:1px solid var(--learn-line)}
+.wa-learn details[open] p{padding:0 .3rem}
+.wa-learn .learn-sources,.wa-learn .learn-next{border-top:1px solid var(--learn-line);margin-top:2rem}
+.wa-learn .learn-sources{font-size:.92rem}
+.wa-learn ul,.wa-learn ol{padding-left:1.4rem}
+.wa-learn li{margin:.6rem 0}
+.wa-learn .learn-paths{display:grid;gap:1rem}
+.wa-learn .learn-path{padding:1.3rem;border:1px solid var(--learn-line);background:var(--learn-panel);border-radius:.7rem}
+.wa-learn .learn-path p{margin-bottom:0;font-size:.98rem}
+.wa-learn .learn-reading-list>li{padding:.8rem .2rem;border-bottom:1px solid var(--learn-line)}
+.wa-learn .learn-reading-list p{font-size:.97rem;color:var(--learn-muted)}
+.wa-learn .learn-footer{max-width:76rem;margin:auto;padding:1.5rem;border-top:1px solid var(--learn-line);font-size:.85rem;color:var(--learn-muted)}
+.wa-learn .learn-footer nav{display:flex;gap:.7rem 1.5rem;flex-wrap:wrap}
+@media(max-width:600px){.wa-learn{font-size:1rem}.wa-learn main{padding:1.6rem 1rem 2.5rem}.wa-learn .learn-header{padding:1rem;gap:.7rem}.wa-learn .learn-header nav{order:3;width:100%;margin-left:0;justify-content:space-between;gap:.4rem}.wa-learn .learn-header button{margin-left:auto;font-size:.8rem}.wa-learn .learn-logo{font-size:.8rem}.wa-learn .learn-evidence{padding:.75rem}.wa-learn .learn-exercise,.wa-learn .learn-takeaway{padding:1rem}.wa-learn .learn-chart text{font-size:27px}}
+@media(prefers-reduced-motion:reduce){.wa-learn *{scroll-behavior:auto!important}}
+@media print{.wa-learn{--learn-bg:white;--learn-panel:white;--learn-text:black;--learn-muted:#333;--learn-link:#111;--learn-line:#999;--learn-accent:#444;background:white;color:black;font-size:10.5pt}.wa-learn .learn-header,.wa-learn .learn-skip,.wa-learn button{display:none}.wa-learn main{max-width:none;padding:0}.wa-learn .learn-table{overflow:visible}.wa-learn table{min-width:0}.wa-learn .learn-chart{max-height:180px}.wa-learn h2{break-after:avoid}.wa-learn figure,.wa-learn .learn-takeaway{break-inside:avoid}.wa-learn .learn-footer{padding:1rem 0}}
