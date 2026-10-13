@@ -1,0 +1,80 @@
+/* World Alive daylight. Integration order:
+   styles.css, stream.css, born.css, experience.css, play-design.css,
+   stream-design.css, day-mode.css. No script or engine changes required.
+   Deliberately scoped to the host theme. Do not link on story/ or life/.
+   Solid text surfaces remove dark translucent/gradient ancestors; map and chart
+   category fills are retained. Ink/teal for navigation, green/red for direction. */
+html[data-theme=light]:not(:has(> body.story, > body.life)){
+ --bg:#faf8f2;--bg2:#f1f0e8;--card:#fffdf8;--card2:#e8efe9;
+ --tx:#172e32;--tx2:#354e51;--tx3:#4b6061;--w:23,46,50;
+ --acc:#00666a;--acc2:#176442;--up:#176442;--down:#a12936;
+ --mig:#65438a;--warn:#795012;--line:#b7c5bd;--line2:#718980;
+ --bar:#fffdf8;--ocean:#e3eeea;--nodata:#d7ddd5;
+ --sh:0 8px 30px #172e321c;color-scheme:light;
+}
+html[data-theme=light]:not(:has(> body.story, > body.life)) body{background:linear-gradient(145deg,#faf8f2,#f1f0e8);color:var(--tx);color-scheme:light}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.topbar,.results,.tooltip,.legend,.panel,.bornwrap,.gamewrap,.loading){background:var(--card);color:var(--tx);backdrop-filter:none}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.card,.mapcard,.ib-card,.sn,.wa-intro,.wa-journey){background:var(--card);border-color:var(--line)}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.wa-intro,.ib-born,.pcounter,.bn-country,.wh-card.big){background:linear-gradient(120deg,#e6f0e7,#fffdf8);border-color:var(--line)}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.vital,.tile,.flow,.citymapwrap,.locbox,.bn-cgrid div,.wh-ranks div,.method pre){background:#eef1e9}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.segmented,.tlwrap){background:#eef1e9}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.results .row:hover,.results .row.sel,.crow:hover,.crow.hi,.sn:hover,.ranklist li:hover,.popbar li:hover,.wa-action:hover,.cbtn:hover){background:#e1ece3;color:var(--tx);border-color:var(--acc)}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .segmented button.active{background:#d8e9de;color:#173f38;box-shadow:inset 0 0 0 1px #688d7a}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.wa-action,.ghost,.backbtn,.themebtn,.bn-link,.wh-hit){border-color:var(--line2)}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.wa-action.primary,.bn-cta,.bornbtn,.playbtn){background:#00666a;color:#fffdf8;border-color:#00666a;box-shadow:none}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.wa-action.primary,.bn-cta,.bornbtn,.playbtn):hover{background:#004c50;color:#fffdf8}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.brand h1 span,.wc-number,.ps-n,.popbar li.lead .ps-n,.bn-title span,.bn-big.live,.gm-title span,.gm-pop,.gm-big,.nf h1){background:none;color:var(--acc);-webkit-text-fill-color:currentColor;text-shadow:none;filter:none}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .wa-eyebrow{color:var(--acc)!important}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.ib-born .ex b,.wh-card.live b,.tl-year,.tl-chip em,.tl-btn,.ghost.active,.dqwarn strong){color:var(--warn)}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.dqwarn,.bn-err){color:#795012;background:#fff0d5;border-color:#9b773d}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.badge,.qz-pass){color:#795012;background:#fff0d5}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.maphint,.maphint.mob){color:var(--tx2);background:#fffdf8;padding:5px 8px;border-radius:6px}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.bn-field input,.bn-field select,.ib-born .bq input,.wh-q,.wh-pick select,#search,.minisearch,.qz-name,.qz-link){background:#fffdf8;color:var(--tx);color-scheme:light;border-color:var(--line2)}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(input,textarea)::placeholder{color:var(--tx3);opacity:1}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(input,select){accent-color:var(--acc)}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.cbtn.todo,#pFold){opacity:1}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.foot,.psrc,.fine,.bn-fine) a{color:var(--acc);text-decoration:underline;text-underline-offset:2px}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(button,a,input,select,textarea,summary,[tabindex]):focus-visible{outline:3px solid #00666a!important;outline-offset:4px;box-shadow:0 0 0 2px #fffdf8}
+html[data-theme=light]:not(:has(> body.story, > body.life)) ::selection{background:#00666a;color:#fffdf8}
+/* SVG text only: category paths/rects and the choropleth remain engine-owned.
+   A paper halo gives geographic labels their own real background over any fill. */
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(#map,#cityMap,#cityZoom) text{fill:#172e32!important;paint-order:stroke fill;stroke:#fffdf8;stroke-width:3px;stroke-linejoin:round;opacity:1}
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.spark,.bn-result,.wh-result) svg text{fill:#354e51!important}
+html[data-theme=light]:not(:has(> body.story, > body.life)) #cityZoom .clbl.main{fill:#172e32}
+/* Play tokens intentionally override the overlay-local dark palette, not only
+   :root. Retain distinct selected, correct, incorrect and muted states. */
+html[data-theme=light]:not(:has(> body.story, > body.life)) .gamewrap{
+ --pd-ink:#f4f3eb;--pd-panel:#fffdf8;--pd-raised:#e7efe7;
+ --pd-paper:#172e32;--pd-muted:#4b6061;--pd-line:#8fa69a;
+ --pd-ice:#00666a;--pd-select:#d3e7bb;--pd-loss:#a12936;
+ --tx:#172e32;--tx2:#354e51;--tx3:#4b6061;
+ --acc:#00666a;--acc2:#176442;--up:#176442;--down:#a12936;
+ --card:#fffdf8;--card2:#e7efe7;--line:#b7c5bd;--line2:#718980;
+ background:#f4f3eb;color:#172e32;color-scheme:light;
+}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .gamewrap :is(.gm-top,.gm-foot,.gm-vs){background:#f4f3eb}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .gamewrap :is(.gm-card,.gm-card.r,.gm-over,.qz,.qz-opt,.gm-verdict,.qz-lb,.qz-podium div){background:#fffdf8;color:var(--tx);border-color:#8fa69a}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .gamewrap :is(.gm-pop,.gm-big){color:var(--tx);-webkit-text-fill-color:currentColor}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .gamewrap :is(.gm-btn.more,.gm-cta){background:#00666a;color:#fffdf8;border-color:#00666a}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .gamewrap .gm-btn.fewer{background:#fffdf8;color:#a12936;border-color:#a12936}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .gamewrap :is(.gm-btn,.gm-cta):hover{background:#d3e7bb;color:#173f38;border-color:#5b7e46}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .gamewrap .segmented button.active{background:#d3e7bb;color:#173f38}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .gamewrap :is(.gm-card.win,.qz-opt.right){background:#e0eee1;border-color:#176442;color:#16472f}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .gamewrap :is(.gm-card.lose,.qz-opt.wrong){background:#f9e7e3;border-color:#a12936;color:#8a2331;opacity:1}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .gamewrap .qz-opt.dim{background:#eff0e9;color:#4b6061;opacity:1}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .gamewrap :is(.qz-pass,.qz-code){background:#fff0d5;color:#795012;border-color:#9b773d}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .gamewrap .qz-turn b{color:#795012}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .gamewrap :is(.qz-name,.qz-link){background:#fffdf8;color:var(--tx)}
+/* Watch (ORIGINAL layout): only colours change in day mode; nothing is repositioned. */
+html[data-theme=light]:not(:has(> body.story, > body.life)) .sv{--tx:#172e32;--tx2:#354e51;--tx3:#4b6061;--acc:#00666a;--acc2:#176442;--up:#176442;--down:#a12936;--line:#b7c5bd;--line2:#718980;color:#172e32}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .sv-vig{background:linear-gradient(180deg,rgba(250,248,242,.92) 0%,rgba(250,248,242,.6) 12%,rgba(250,248,242,.2) 22%,transparent 38%,transparent 54%,rgba(250,248,242,.5) 78%,rgba(250,248,242,.92) 100%)}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .sv :is(.sv-rail,.sv-card,.sv-next,.sv-board,.sv-big,.sv-bandwrap,.sv-x,.sv-nrow,.sv-dcell,.sv-tuned){background:#fffdf8;color:#172e32;border-color:#8fa69a}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .sv :is(.sv-hero,.sv-hcnum,.sv-pp,.sv-biglist .sv-pp,.sv-bv,.sv-tlist b){background:none;background-image:none;color:#172e32;-webkit-text-fill-color:#172e32;filter:none;text-shadow:none}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .sv .sv-hero em{color:#4b6061;-webkit-text-fill-color:#4b6061}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .sv :is(.sv-hclbl,.sv-hcsub b,.sv-hcsub span){text-shadow:none;color:#172e32}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .sv .sv-hcsub b{color:#176442}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .sv .sv-pausebadge{background:#d3e7bb;color:#173f38;border-color:#8fa69a}
+html[data-theme=light]:not(:has(> body.story, > body.life)) body.stream-on .legend,html[data-theme=light]:not(:has(> body.story, > body.life)) .stream-on .legend{background:#fffdf8;color:#172e32;border-color:#8fa69a}
+/* Footer opacity stacked on its fine-print children washed out legal credits. */
+html[data-theme=light]:not(:has(> body.story, > body.life)) :is(.foot,.fnote,.fsrc){opacity:1}
+html[data-theme=light]:not(:has(> body.story, > body.life)) .spark svg text{paint-order:stroke fill;stroke:#fffdf8;stroke-width:3px;stroke-linejoin:round}

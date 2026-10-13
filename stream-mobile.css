@@ -1,0 +1,48 @@
+/* Watch mode — PHONES ONLY (<=600px). Desktop/tablet Watch is untouched (stream.css).
+   On a phone the absolutely-positioned panels of the desktop layout pile on top of each other,
+   so here the overlay becomes one scrollable column: header → live counter → a window onto the
+   globe → the rotating spotlight card → vitals & boards → up next → band. Same panels, same
+   styling, just stacked. The overlay scrolls with one finger; the camera is directed by the feed
+   (zoom buttons stay fixed bottom-right). */
+@media (max-width:600px){
+  body.stream-on .sv{display:flex;flex-direction:column;gap:10px;padding:0 10px 92px;overflow-y:auto;overscroll-behavior:contain;
+    pointer-events:auto;-webkit-overflow-scrolling:touch;animation:none}
+  body.stream-on .sv > *{flex:0 0 auto}
+  /* the vignette is position:fixed, so it would paint above the (now static) header — push it behind */
+  .sv .sv-vig{position:fixed;z-index:-1}
+  /* header: LIVE · clock · Exit (brand hidden — the counter says who we are); the counter spans the row below */
+  .sv .sv-top{position:static;order:0;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px 10px;padding:10px 2px 0}
+  .sv .sv-live{justify-self:start;width:auto}
+  .sv .sv-top > .sv-hero-count{grid-column:1/-1}
+  .sv .sv-brand{display:none}
+  .sv .sv-clock{margin:0;text-align:right}.sv .sv-clock b{font-size:15px}
+  .sv .sv-x{min-width:64px;min-height:44px;font-size:13px;padding:8px 12px}
+  /* live counter in flow, centred, digits sized to fit 13 digits + separators */
+  .sv .sv-hero-count{position:static;transform:none;order:1;text-align:center;padding:2px 0 4px}
+  .sv .sv-hcnum{font-size:clamp(26px,8.6vw,40px);white-space:nowrap}
+  .sv .sv-hcsub{gap:8px 14px;flex-wrap:wrap;margin-top:5px}
+  /* the globe is visible through this gap; the spotlight card starts below it */
+  .sv .sv-card{position:static;order:2;width:auto;margin:min(30vh,270px) 0 0;padding:16px 16px 14px;max-width:none}
+  .sv .sv-card h2{font-size:22px}
+  .sv .sv-hero{font-size:clamp(28px,8vw,40px)}.sv .sv-hero.sv-mid{font-size:clamp(30px,9vw,44px)}
+  .sv .sv-kv{grid-template-columns:1fr}
+  .sv .sv-leftcol{position:static;order:3;width:auto;max-height:none;overflow:visible;display:flex;flex-direction:column;gap:10px}
+  .sv .sv-rail{display:block;padding:14px 15px}
+  .sv .sv-rate{margin:12px 0 14px;padding-bottom:12px}
+  .sv .sv-today,.sv .sv-rlbl{display:block}.sv .sv-tuned{display:block;margin-top:14px}
+  .sv .sv-next{position:static;order:4;width:auto;text-align:left;padding:10px 12px}
+  .sv .sv-nline{justify-content:flex-start;white-space:normal}
+  .sv .sv-tops{display:none}
+  .sv .sv-bandwrap{position:static;order:5;width:auto;padding:12px}
+  .sv .sv-bandrow{grid-template-columns:repeat(2,minmax(0,1fr));display:grid;gap:10px}
+  /* small-caps labels were 8.5–9.5px: unreadable on a phone */
+  .sv .sv-nlbl,.sv .sv-rlbl,.sv .sv-eyebrow,.sv .sv-hclbl,.sv .sv-sparklbl,.sv .sv-rate li span,.sv .sv-clock em{font-size:10.5px}
+  /* fixed controls */
+  .sv .sv-zoom{position:fixed;right:10px;bottom:14px;top:auto;left:auto;display:flex;flex-direction:row;gap:6px;z-index:6}
+  .sv .sv-zoom button{width:44px;height:44px}
+  .sv .sv-manual{position:fixed;left:10px;bottom:16px;top:auto;right:auto;transform:none;max-width:calc(100vw - 190px);z-index:6}
+  .sv .sv-pausebadge{position:fixed;left:50%;top:calc(min(30vh,270px)/2 + 150px);transform:translate(-50%,-50%);z-index:6}
+  .sv .sv-progwrap{position:fixed;left:0;right:0;bottom:0}
+  .sv .sv-boot{position:fixed}
+  body.stream-on .legend{display:none}
+}

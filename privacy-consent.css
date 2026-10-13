@@ -1,0 +1,15 @@
+/* Footer-only, nonmodal controls: never overlay or restyle application content. */
+.wa-privacy-footer { padding: .75rem 1rem; }
+.wa-privacy-controls { margin: .75rem 0; font: 400 14px/1.5 system-ui, sans-serif; text-align: left; }
+.wa-privacy-controls [hidden] { display: none !important; }
+.wa-privacy-controls button, .wa-privacy-controls a { font: inherit; }
+.wa-privacy-controls button { min-height: 44px; padding: .5rem .85rem; border: 1px solid #8b98a5; border-radius: .35rem; color: #172330; background: #fff; cursor: pointer; }
+.wa-privacy-controls button:disabled { cursor: not-allowed; opacity: .65; }
+.wa-privacy-controls a { color: #154d84; text-decoration: underline; }
+.wa-privacy-controls :focus-visible { outline: 3px solid #2681c4; outline-offset: 3px; }
+#wa-consent-panel { box-sizing: border-box; max-width: 42rem; margin-top: .5rem; padding: 1rem; color: #172330; background: #f5f7f9; border: 1px solid #8b98a5; border-radius: .4rem; }
+#wa-consent-panel h2 { margin: 0 0 .5rem; font: 600 1.1rem/1.4 system-ui, sans-serif; color: inherit; }
+#wa-consent-panel p { margin: .5rem 0; color: inherit; font: inherit; }
+.wa-consent-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: .75rem 0; }
+.wa-consent-actions button { flex: 1 1 10rem; }
+@media print { .wa-privacy-controls { display: none; } }

@@ -1,0 +1,61 @@
+/* Retention layer for the homepage. Loaded after experience.css, before day-mode.css.
+   Does not style Watch (#streamWrap / body.stream-on) — stream.css owns that. */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* ONE hero decision */
+.hero-strip{margin:14px 26px 0;padding:18px 24px;border:1px solid rgba(110,231,183,.22);border-radius:16px;
+  background:linear-gradient(120deg,rgba(34,211,238,.10),rgba(52,211,153,.03));display:grid;grid-template-columns:minmax(0,1.3fr) auto auto;gap:18px 26px;align-items:center}
+.hero-strip h2{font-size:clamp(20px,2.3vw,30px);line-height:1.12;margin:2px 0 6px;letter-spacing:-.02em}
+.hero-strip p{color:var(--tx2);margin:0;font-size:14px}.hero-strip .wa-eyebrow{margin-bottom:4px}
+.hs-form{display:flex;gap:8px;align-items:stretch}
+.hs-form input{width:118px;min-height:46px;padding:0 14px;border-radius:10px;border:1px solid var(--line2);background:rgba(0,0,0,.28);color:var(--tx);font:600 20px var(--mono);letter-spacing:.02em;text-align:center}
+.hs-form input:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px rgba(34,211,238,.18)}
+.hs-form .wa-action{white-space:nowrap}
+.hs-quiet{color:var(--tx2);font-size:13px;text-decoration:underline;text-underline-offset:3px;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center}
+.hs-quiet:hover{color:var(--tx)}
+/* session hook: live, personal, visible immediately */
+.sess-pill{display:inline-flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px;padding:6px 12px;border-radius:999px;
+  border:1px solid rgba(52,211,153,.28);background:rgba(52,211,153,.07);font-size:11.5px;color:var(--tx2)}
+.sess-pill b{font:700 12.5px var(--mono);color:var(--acc2);font-variant-numeric:tabular-nums}
+.sess-pill .fine b{color:var(--tx)}
+.sess-pill[hidden]{display:none!important}
+/* nav demoted below the globe: one scannable row */
+.sitenav.below{margin:0;padding:6px 2px 2px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin;align-items:center;border-bottom:0}
+.sitenav.below .sn-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx3);flex:0 0 auto;padding-right:6px}
+.sitenav.below .sn{flex:0 0 auto;padding:9px 12px;min-height:44px}
+.sitenav.below .sn em{display:none}
+/* daily challenge return hook */
+.daily-card{border-color:rgba(167,139,250,.35);background:linear-gradient(160deg,rgba(167,139,250,.10),var(--card))}
+.daily-card h2{color:#c4b5fd}.daily-card .dc-row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.daily-card .dc-streak{font:700 26px var(--mono);color:var(--tx)}.daily-card .dc-streak small{font:11px system-ui;color:var(--tx3);display:block}
+.daily-card .wa-action{padding:9px 14px;min-height:40px}
+/* infoband demoted */
+.infoband.two{grid-template-columns:1.2fr .8fr}.infoband .ib-card h2{font-size:15px}.infoband .ib-card p{font-size:13px}
+.ib-contact h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--tx3)}
+/* mobile: globe must be within first viewport */
+@media(max-width:600px){
+  .hero-strip{margin:10px 12px 0;padding:14px;grid-template-columns:1fr;gap:10px}
+  .hero-strip h2{font-size:19px}.hero-strip p{font-size:13px}
+  .hs-form{width:100%}.hs-form input{flex:0 0 96px}.hs-form .wa-action{flex:1}
+  .hs-quiet{justify-self:start;min-height:36px}
+  .sess-pill{gap:8px;font-size:10.5px;padding:5px 10px}
+  .infoband.two{grid-template-columns:1fr}
+}
+/* day mode */
+html[data-theme=light] .hero-strip{background:linear-gradient(120deg,rgba(0,102,106,.08),rgba(23,100,66,.03));border-color:rgba(0,102,106,.3)}
+html[data-theme=light] .hs-form input{background:#fff;color:#172e32;border-color:#8fa69a}
+html[data-theme=light] .sess-pill{background:rgba(23,100,66,.08);border-color:rgba(23,100,66,.35)}html[data-theme=light] .sess-pill b{color:#176442}
+html[data-theme=light] .daily-card{background:#f3effc;border-color:#b9a8f0}html[data-theme=light] .daily-card h2{color:#5b3fbf}
+@media(prefers-reduced-motion:reduce){.hero-strip,.sess-pill,.daily-card{transition:none;animation:none}}
+
+.hs-preview{grid-column:1/-1;margin:0;padding:10px 14px;border-left:2px solid var(--acc2);background:rgba(52,211,153,.06);color:var(--tx);font-size:14px;line-height:1.55}
+.hs-preview b{font-family:var(--mono);color:var(--acc)}.hs-preview a{color:var(--acc2);margin-left:6px}
+.hs-preview[hidden]{display:none!important}
+html[data-theme=light] .hs-preview{background:rgba(23,100,66,.07);color:#172e32}html[data-theme=light] .hs-preview b{color:#00666a}
+
+/* phones: map toolbar becomes one scrollable row so the globe rises into the first screen */
+@media(max-width:600px){
+  .mapbar{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:8px;padding:8px 10px}
+  .mapbar::-webkit-scrollbar{display:none}
+  .mapbar .segmented,.mapbar .mapctl{flex:0 0 auto;flex-wrap:nowrap}
+  .mapbar .segmented button,.mapbar .ghost{white-space:nowrap;padding:8px 11px;font-size:12px}
+}

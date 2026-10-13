@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+
+
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>World Population Live: Map, Cities &amp; Birth-Year Explorer | World Alive</title>
+<link rel="canonical" href="https://www.theworldalive.com/">
+<script>
+/* set theme before first paint so there is no flash of the wrong colours */
+(function(){try{var t=localStorage.getItem('wp_theme')||'dark';  // dark default; light only via toggle
+  document.documentElement.setAttribute('data-theme',t);}catch(e){
+  document.documentElement.setAttribute('data-theme','dark');}})();
+</script>
+<meta name="theme-color" content="#070b14">
+<!-- Add-to-Home-Screen: lets mobile visitors install World Alive as a standalone
+     app icon (a real retention hook — they come back by tapping the icon, not by
+     re-finding a URL). Standalone display + status-bar styling for iOS. -->
+<link rel="manifest" href="manifest.webmanifest?v=f2c9d4af399d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="World Alive">
+<link rel="apple-touch-icon" href="icons/icon-192.png?v=7383edc5">
+<!-- Social preview. og:image needs an ABSOLUTE url once the domain exists —
+     relative paths are ignored by every scraper. -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.theworldalive.com/">
+<meta property="og:site_name" content="World Alive">
+<meta property="og:title" content="World Population Live: Map, Cities &amp; Birth-Year Explorer | World Alive">
+<meta property="og:description" content="Explore world population on a map, country and city records, and your birth year. World Bank 2025 snapshot: 8,215,424,893; moving counters are models, not live observations.">
+<meta property="og:image" content="https://www.theworldalive.com/preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="World Population Live: Map, Cities &amp; Birth-Year Explorer | World Alive">
+<meta name="twitter:description" content="Explore world population on a map, country and city records, and your birth year. World Bank 2025 snapshot: 8,215,424,893; moving counters are models, not live observations.">
+<meta name="twitter:image" content="https://www.theworldalive.com/preview.png">
+<meta name="description" content="Explore world population on a map, country and city records, and your birth year. World Bank 2025 snapshot: 8,215,424,893; moving counters are models, not live observations.">
+<link rel="stylesheet" href="styles.css?v=d72d06418dae">
+<link rel="stylesheet" href="stream.css?v=f66963b05597">
+<link rel="stylesheet" href="stream-mobile.css?v=997f7950a390">
+<link rel="stylesheet" href="born.css?v=a6177a1090d0">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
+<link rel="stylesheet" href="experience.css?v=a60d6ea5d4fd">
+
+<link rel="stylesheet" href="play-design.css?v=d73f48a7b191">
+<link rel="stylesheet" href="home-design.css?v=c93c6e8bc32f">
+<link rel="stylesheet" href="day-mode.css?v=180b7ce707b3">
+<link rel="stylesheet" href="/quality.css?v=2c82d40dbd8e"><script src="/data-runtime.js?v=ccf9ac4f9288"></script><script type="application/ld+json" data-sf-schema="1">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://www.theworldalive.com/#website","url":"https://www.theworldalive.com/","name":"World Alive","description":"Explore world population on a map, country and city records, and your birth year. World Bank 2025 snapshot: 8,215,424,893; moving counters are models, not live observations.","publisher":{"@id":"https://www.theworldalive.com/#project"},"inLanguage":"en"},{"@type":"Organization","@id":"https://www.theworldalive.com/#project","name":"World Alive","url":"https://www.theworldalive.com/","description":"World Alive is a population-exploration web project."}]}</script><link rel="stylesheet" href="/search-content.css?v=ef4e5861db3b"><link rel="stylesheet" href="/visual-preview.css?v=a42ab33d34c6"><link rel="stylesheet" href="/design-r2/design.css?v=40820755614f"><link rel="stylesheet" href="/design-r3/design.css?v=302bee1ff7b3"><script defer src="/design-r3/design.js?v=2482e628679b"></script><link rel="stylesheet" href="/design-r3/reading-refinements.css?v=111760151dea"><!-- WA-PRIVACY:v1 --><link rel="stylesheet" href="/privacy-consent.css?v=c4038f58653c"><script src="/privacy-consent.js?v=94da8f0fd313" defer></script><!-- /WA-PRIVACY:v1 --></head>
+<body class="r2 r2-home r3 r3-home-illustrated r4-counter">
+<a class="wa-skip" href="#main-content">Skip to content</a>
+
+<!-- ══════════════════════════ HEADER ══════════════════════════ -->
+<header class="topbar"><div class="brand">
+    <div class="globe">🌍</div>
+    <div>
+      <h1>World&nbsp;<span>Alive</span></h1>
+      <p class="tag">Population, perspective &amp; your story</p>
+    </div>
+  </div><nav class="pv-primary" aria-label="Primary navigation"><a href="#main-content" aria-current="page">Explore</a><a href="sixty/">Your world</a><a href="play/">Play</a><a href="learn/">Learn</a></nav><div class="topright">
+    <button class="themebtn" id="themeBtn" title="Switch light / dark" aria-label="Switch light or dark theme"></button>
+    <button class="watchbtn" id="watchBtn" title="Ambient world feed — lean back and watch">
+      <i></i> Watch
+    </button>
+    <div class="searchwrap">
+      <svg viewBox="0 0 24 24" class="si"><path d="M21 21l-4.35-4.35M17 10.5A6.5 6.5 0 1 1 4 10.5a6.5 6.5 0 0 1 13 0z"/></svg>
+      <input id="search" aria-label="Search country or city" type="search" placeholder="Search country or city..." autocomplete="off" spellcheck="false">
+      <div class="results" id="results" hidden></div>
+    </div>
+    
+  </div></header>
+
+<!-- ══════════════════════════ SITE NAV ══════════════════════════
+     The features that used to hide behind hashes and footer links, as buttons.
+     Static sections (countries / cities / compare) are real pages, the rest open
+     in place. Scrolls horizontally on phones instead of wrapping into a wall. -->
+<!-- Population hero now belongs to the actual globe, not a detached card. -->
+
+<!-- ══════════════════════════ MAIN ══════════════════════════ -->
+<main id="main-content">
+  <!-- MAP -->
+  <!-- one column: the strip must sit directly under the map, so they share a
+       flex parent. A 2-row grid with a row-spanning sidebar inflated row 1 and
+       left a 195px blank band between them. -->
+  <div class="mapcol"><nav class="pv-shortcuts" aria-label="Popular explorations"><a href="countries/">Countries</a><a href="cities/">Cities</a><a href="compare/">Compare places</a><a href="rankings/">Rankings</a></nav>
+  <section class="mapcard" aria-label="World population and interactive globe"><div class="worldcounter" id="worldCounter">
+    <div class="wc-label">
+      <span class="pulse"></span> World population right now
+    </div>
+    <div class="wc-number" id="wcNumber">—</div>
+    <a class="wa-trust" href="methodology/">Estimated now · annual source data · calculation</a>
+    <div class="wc-sub" id="wcSubLine">
+      <span id="wcGrowthToday">—</span> people added today
+      · <span id="wcRate">—</span>
+    </div>
+    
+  <div class="pv-data-status"><div class="status" id="status" title="Data source status">
+      <span class="dot"></span><span id="statusText">connecting...</span>
+    </div></div></div>
+    <div class="mapbar">
+      <div class="segmented" id="modeSwitch" role="tablist">
+        <button class="active" data-mode="pop"     role="tab">Population</button>
+        <button                data-mode="growth"  role="tab">Growth&nbsp;rate</button>
+        <button                data-mode="density" role="tab">Density</button>
+        <button                data-mode="age"     role="tab">Ageing&nbsp;65+</button>
+      </div>
+      <div class="mapctl">
+        <button class="ghost" id="btnNames" title="Toggle country names">
+          <span class="chk on" id="chkNames"></span> Names
+        </button>
+        <button class="ghost" id="btnCities" title="Toggle city markers">
+          <span class="chk" id="chkCities"></span> Cities
+        </button>
+        <button class="ghost" id="btnTime" title="Time machine: see any year from 1800 to 2100">⏳ Time&nbsp;machine</button>
+        <button class="ghost" id="btnReset" title="Reset view">Reset&nbsp;view</button>
+      </div>
+    </div>
+
+    <div class="mapstage" id="mapStage">
+      <svg id="map"></svg>
+      <div class="legend" id="legend"></div>
+      <div class="tooltip" id="tooltip" hidden></div>
+      <div class="maphint">Drag to spin the globe · scroll to zoom · click a country for city-level detail</div>
+      <div class="maphint mob">Tap a country · two fingers to pan &amp; zoom</div>
+      <div class="loading" id="loading"><div class="spinner"></div><span>Loading live data...</span></div>
+    </div>
+  </section>
+
+  <!-- LARGEST POPULATIONS: a horizontal strip directly under the map, where it
+       is visible without scrolling and fills what used to be dead space -->
+  <section class="card popstrip">
+    <div class="cardhead">
+      <h2>Largest populations</h2>
+      <span class="ps-note" id="popShare">&nbsp;</span>
+    </div>
+    <ol id="topPop" class="popbar"></ol>
+  </section>
+<details class="pv-tools" id="pvTools"><summary>More ways to explore · 9 tools</summary><nav class="sitenav below" aria-label="Explore"><span class="sn-label">Explore</span>
+  <a class="sn" href="countries/"><span class="sn-ico">🗺️</span><span><b>Countries</b><em>217 pages · live counters, history, cities</em></span></a>
+  <a class="sn" href="cities/"><span class="sn-ico">🏙️</span><span><b>Cities</b><em>Explore place pages &amp; UN urban centres</em></span></a>
+  <a class="sn" href="rankings/"><span class="sn-ico">🏆</span><span><b>Rankings</b><em>largest, fastest-growing, oldest, densest</em></span></a>
+  <a class="sn" href="compare/"><span class="sn-ico">⚖️</span><span><b>Compare</b><em>any two countries or cities</em></span></a>
+  <a class="sn born" href="#born" id="navBorn"><span class="sn-ico">🎂</span><span><b>When you were born</b><em>your personal slice of humanity</em></span></a>
+  <a class="sn where" href="#where" id="navWhere"><span class="sn-ico">📍</span><span><b>Where are you?</b><em>your city's place in humanity</em></span></a>
+  <a class="sn time" href="#time/1900" id="navTime"><span class="sn-ico">⏳</span><span><b>Time machine</b><em>the map in any year, 1800 → 2100</em></span></a>
+  <a class="sn play" href="#play" id="navPlay"><span class="sn-ico">🎮</span><span><b>Play Bigger?</b><em>daily challenge &amp; endless</em></span></a>
+  <a class="sn quiz" href="#quiz" id="navQuiz"><span class="sn-ico">🧠</span><span><b>Humanity quiz</b><em>solo, party (up to 8) or challenge room</em></span></a>
+</nav></details>
+
+<div class="pv-session"><div class="sess-pill" id="sessWrap" hidden><span><b id="sessBorn">—</b> babies born</span><span><b id="sessNet">—</b> net change</span><span class="fine">in your <b id="sessTime">—</b> here</span></div></div><section class="quality-section" id="quality-home-learning"><p class="sf-summary" data-sf-summary="world" data-sf-source="World Bank"><strong>World population: 8,215,424,893 people in 2025.</strong> This is the annual World Bank snapshot in <a href="/data/world.json?v=65aa95da6b55">world.json</a>. The moving counters project annual data forward; they are modeled estimates, not real-time observations or a live census.</p><p class="quality-meta">POPULATION EXPLAINED · TOOLS WITH CONTEXT</p><h2>Not just a number. Understand what changed.</h2><p>Explore annual population estimates, test your intuition and understand why two sources can give different answers. The moving counters are models, not a live census.</p><div class="quality-paths"><article><h3>Start with a question</h3><p>What does a live counter actually measure?</p><a href="/learn/live-population-counters/">Follow a worked example →</a></article><article><h3>Challenge a familiar comparison</h3><p>Why is Sydney's urban-centre figure smaller than another Sydney record?</p><a href="/learn/urban-and-administrative-population/">Look at the boundaries →</a></article><article><h3>Make a discovery yours</h3><p>Try one short challenge, then read the explanation behind a surprising answer.</p><a href="/play/">Choose a learning experience →</a></article></div><p><a href="/learn/">All six guides</a> · <a href="/updates/">What was reviewed</a> · <a href="/editorial/">How content is checked</a></p></section>
+  <!-- Fills the ~376px of dead column that sat left of the sidebar's lower half,
+       and gives a first-time visitor a way to reach a human. -->
+  <section class="infoband two">
+    <div class="ib-card ib-born" id="bornCard">
+      <h2>Know your exact birth date?</h2>
+      <p>See how many people were alive that day and how many have been born since.</p>
+      <form class="bq" id="bornQuick" autocomplete="off">
+        <input type="date" id="bornQuickDate" min="1960-01-01" aria-label="Your birth date">
+        <button class="bn-cta" type="submit">Show me →</button>
+      </form>
+    </div>
+    <div class="ib-card ib-contact" id="contact">
+      <h2>Get in touch</h2>
+      <div id="contactBody"><p class="cblurb">Loading...</p></div>
+      <p class="ib-fine">No account required. Preferences and scores use local storage; story choices are opt-in. <a href="privacy/">Privacy details</a>.</p>
+    </div>
+  </section>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="side"><section class="hero-strip" id="wa-intro" aria-labelledby="wa-title">
+  <div class="hs-copy"><p class="wa-eyebrow">The world's data, made personal</p><h2 id="wa-title">Your planet.<br><em>A little closer.</em></h2><p>Explore the human planet. Or start with one year—yours.</p></div>
+  <form class="hs-form" id="heroYear" autocomplete="off"><label class="sr-only" for="heroYearInput">Your birth year</label><input id="heroYearInput" name="year" type="number" inputmode="numeric" min="1960" max="2026" placeholder="1990" aria-describedby="wa-title"><button class="wa-action primary" type="submit">Show my world →</button></form>
+  <a class="hs-quiet" id="wa-daily" href="#play">Today's challenge</a>
+  <p class="hs-preview" id="heroPreview" hidden aria-live="polite"></p>
+</section>
+    <div class="card daily-card" id="dailyCard" hidden></div>
+    <div class="card">
+      <h2>Live world vitals <span class="hint" title="Derived from World Bank crude birth/death rates applied continuously">?</span></h2>
+      <div class="vitals">
+        <div class="vital up">
+          <div class="vl">Births today</div>
+          <div class="vv" id="vBirths">—</div>
+          <div class="vr" id="vBirthsRate">—</div>
+        </div>
+        <div class="vital down">
+          <div class="vl">Deaths today</div>
+          <div class="vv" id="vDeaths">—</div>
+          <div class="vr" id="vDeathsRate">—</div>
+        </div>
+        <div class="vital up">
+          <div class="vl">Net growth today</div>
+          <div class="vv" id="vNet">—</div>
+          <div class="vr" id="vNetRate">—</div>
+        </div>
+        <div class="vital">
+          <div class="vl">Births this year</div>
+          <div class="vv" id="vBirthsY">—</div>
+          <div class="vr">since 1 Jan</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="cardhead">
+        <!-- heading, unit buttons and both list headings are written by
+             buildRankSwitch(), so the whole card follows the map mode -->
+        <h2 id="rankTitle">Fastest changing</h2>
+        <span class="unitnote" id="rankUnit" hidden></span>
+        <div class="segmented small" id="rankSwitch"></div>
+      </div>
+      <div class="ranktabs">
+        <div class="ranklist">
+          <h3 class="up" id="rankHi">Fastest growing</h3>
+          <ol id="topGrow"></ol>
+        </div>
+        <div class="ranklist">
+          <h3 class="down" id="rankLo">Fastest shrinking</h3>
+          <ol id="topShrink"></ol>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+</main>
+
+<!-- ══════════════════════════ COUNTRY PANEL ══════════════════════════ -->
+<div class="scrim" id="scrim" hidden></div>
+<section class="panel" id="panel" hidden>
+  <button class="close" id="panelClose" aria-label="Close">✕</button>
+
+  <div id="countryView">
+  <div class="phead">
+    <div class="pflag" id="pFlag">🏳️</div>
+    <div>
+      <h2 id="pName">—</h2>
+      <p id="pMeta">—</p>
+    </div>
+  </div>
+
+  <div class="pcounter">
+    <div class="pc-label"><span class="pulse"></span> Live population estimate</div>
+    <div class="pc-number" id="pPop">—</div>
+    <div class="pc-sub" id="pPopSub">—</div>
+  </div>
+
+  <div class="spark" id="pSpark"></div>
+
+  <div class="pgrid" id="pGrid"></div>
+
+  <div class="pflow">
+    <div class="flow up"><span id="pBirths">—</span><em>births / day</em></div>
+    <div class="flow down"><span id="pDeaths">—</span><em>deaths / day</em></div>
+    <div class="flow mig"><span id="pMig">—</span><em>net migration / yr</em></div>
+  </div>
+
+  <div class="citiesblock">
+    <div class="cardhead">
+      <h3>Cities <span class="muted" id="pCityCount"></span></h3>
+      <input id="cityFilter" aria-label="Filter cities" class="minisearch" placeholder="Filter cities..." autocomplete="off">
+    </div>
+    <div class="citymapwrap"><svg id="cityMap"></svg></div>
+    <p class="dqwarn" id="pDQ" hidden></p>
+    <div class="citylist" id="pCities"></div>
+    <p class="fine" id="pFold"></p>
+    <p class="fine">Place records use different geographic definitions and reference years. Detail views identify the selected population and projection method. Missing data is not zero; administrative coverage may be incomplete. <a href="methodology/">Methodology</a>.</p>
+  </div>
+
+  <p class="pfull"><a id="pFull" href="countries/" hidden>Full page: population, history since 1960, cities &amp; comparisons →</a></p>
+  <div class="psrc" id="pSrc"></div>
+  </div><!-- /countryView -->
+
+  <div id="cityView" hidden></div>
+</section>
+
+<!-- ══════════════════════════ FOOTER ══════════════════════════ -->
+<footer>
+  <div class="foot">
+  <!-- Trimmed to the legal minimum. Natural Earth (public domain) and the
+       flag images (public-domain designs) require no credit and were removed.
+       World Bank and GeoNames are both CC BY 4.0 -- attribution is a licence
+       CONDITION, so these two lines must stay, including the licence link. -->
+  <span class="fnote"><b>World&nbsp;Alive</b> shows continuous estimates projected from annual data, not a census. <a href="countries/">Every country</a> · <a href="cities/">largest cities</a> · <a href="rankings/">rankings</a> · <a href="history/">world population history</a> · <a href="embed/">embed a live counter</a></span>
+  <span class="fsrc">Data:
+    <a href="https://data.worldbank.org" target="_blank" rel="noopener">World&nbsp;Bank</a>,
+    <a href="https://www.geonames.org" target="_blank" rel="noopener">GeoNames</a>
+    &middot; <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"
+      rel="noopener">CC&nbsp;BY&nbsp;4.0</a></span>
+</div><nav class="quality-links" aria-label="Learning and site information"><a href="/learn/">Learn the numbers</a><a href="/play/">Games &amp; experiences</a><a href="/editorial/">Editorial standards</a><a href="/updates/">Review log</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a></nav></footer>
+<script src="vendor/d3.custom.min.js?v=bf4350d211da"></script>
+<script src="vendor/topojson.min.js?v=25cd02ae486c"></script>
+<script src="countries/slugs.js?v=04ac6f5ba46c"></script>
+<script src="contact.js?v=eb3a85e805dd"></script>
+<script src="app.js?v=8a54fa495033"></script>
+<script src="where.js?v=59740ca70c63"></script>
+<script src="timeline.js?v=bf6b33a414fe"></script>
+<script src="quiz.js?v=1c840bf2a63d"></script>
+<script src="game.js?v=7cb6ddb662d9"></script>
+<script src="born.js?v=37eb533d5631"></script>
+<script src="stream.js?v=262cda3a9001"></script>
+<script>
+(function(){
+  var root=document.documentElement, b=document.getElementById('themeBtn');
+  function paint(){ b.textContent = root.getAttribute('data-theme')==='light' ? '\u2600' : '\u263D'; }
+  paint();
+  b.addEventListener('click',function(){
+    var next = root.getAttribute('data-theme')==='light' ? 'dark' : 'light';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('wp_theme',next);}catch(e){}
+    paint();
+    if (window.WP && window.WP.repaint) window.WP.repaint();
+  });
+})();
+</script>
+<script src="experience.js?v=7e8be02f102e" defer></script>
+<script src="play-design.js?v=cba0b0517033" defer></script>
+<script src="analytics-events.js?v=cfe3bd1781cd" defer></script>
+<script src="/visual-preview.js?v=70d4194024bf" defer></script></body>
+</html>

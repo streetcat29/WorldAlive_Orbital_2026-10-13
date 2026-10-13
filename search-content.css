@@ -1,0 +1,19 @@
+/* Search summaries only. No global component, hero, viewport or input overrides. */
+.sf-summary[data-sf-summary] {
+  color: inherit;
+  font: inherit;
+  font-size: .94rem;
+  line-height: 1.55;
+  max-width: 78ch;
+  margin: .9rem 0;
+  overflow-wrap: anywhere;
+}
+.sf-summary[data-sf-summary] strong { color: inherit; font-weight: 650; }
+.sf-summary[data-sf-summary] a { color: inherit; text-underline-offset: .18em; }
+.sf-summary[data-sf-summary] a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+[data-theme="light"] .sf-summary[data-sf-summary],
+[data-theme="dark"] .sf-summary[data-sf-summary] { color: inherit; }
+/* Existing experience.hidden is the sole state hook. No JS and no result spoilers. */
+#experience:not([hidden]) ~ .sf-summary[data-sf-summary="birth-year"],
+#intro[hidden] ~ .sf-summary[data-sf-summary="birth-year"] { display: none; }
+.sf-summary[data-sf-summary="birth-year"] { margin: 1rem 0 1.5rem; }

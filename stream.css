@@ -1,0 +1,395 @@
+/* ═══════════ World Feed (stream / ambient mode) ═══════════ */
+
+/* the real map becomes the stage: everything else steps aside */
+body.stream-on{overflow:hidden}
+/* Direct-child selectors only: the feed's own <footer> ticker lives inside .sv,
+   and an unscoped `footer` rule hid it completely. */
+body.stream-on > .topbar,body.stream-on > footer,
+body.stream-on .side,body.stream-on .mapbar,body.stream-on .maphint,
+body.stream-on > .panel,body.stream-on > #scrim,body.stream-on #tooltip,
+body.stream-on .gamewrap{display:none!important}
+body.stream-on main{display:block;padding:0;margin:0;max-width:none}
+body.stream-on .mapcard{position:fixed;inset:0;z-index:1;border:0;border-radius:0;
+  background:var(--bg);padding:0;box-shadow:none}
+body.stream-on .mapstage{position:absolute;inset:0;height:100%;border-radius:0}
+body.stream-on #map{width:100%;height:100%}
+/* legend sits bottom-left between the zoom cluster and the segment card; on the
+   right it collided with the top-ten boards */
+body.stream-on .legend{left:74px;right:auto;bottom:132px;z-index:60;opacity:.95}
+body.stream-on.sv-idle,body.stream-on.sv-idle *{cursor:none!important}
+
+.sv[hidden]{display:none!important}
+.sv{position:fixed;inset:0;z-index:150;pointer-events:none;
+  font-variant-numeric:tabular-nums;animation:svIn .5s ease}
+@keyframes svIn{from{opacity:0}}
+.sv button{pointer-events:auto}
+/* The map underneath can be extremely bright (yellow/orange choropleth), so no
+   text may sit directly on it. Every text cluster gets a panel, and the top
+   vignette is strong enough to carry the hero counter. */
+.sv-vig{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(4,8,16,.94) 0%,rgba(4,8,16,.72) 12%,
+    rgba(4,8,16,.3) 22%,transparent 38%,
+    transparent 54%,rgba(4,8,16,.5) 78%,rgba(4,8,16,.92) 100%),
+    linear-gradient(90deg,rgba(4,8,16,.88) 0%,rgba(4,8,16,.45) 22%,transparent 40%),
+    linear-gradient(270deg,rgba(4,8,16,.8) 0%,rgba(4,8,16,.35) 20%,transparent 36%)}
+
+/* ── top bar ── */
+.sv-top{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;gap:18px;
+  padding:18px 26px}
+.sv-live{display:flex;align-items:center;gap:8px;font:700 11px/1 system-ui;letter-spacing:.18em;
+  color:#fff;background:#dc2626;padding:6px 11px;border-radius:6px;box-shadow:0 2px 16px rgba(220,38,38,.5)}
+.sv-live i{width:7px;height:7px;border-radius:50%;background:#fff;animation:svPulse 1.6s infinite}
+@keyframes svPulse{0%,100%{opacity:1}50%{opacity:.25}}
+.sv-brand{font:700 17px/1.1 system-ui;letter-spacing:-.02em}
+.sv-brand span{display:block;font:600 10px/1 system-ui;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--acc2);margin-top:4px}
+.sv-clock{margin-left:auto;text-align:right}
+.sv-clock b{font:700 19px var(--mono);display:block}
+.sv-clock em{font-style:normal;font-size:9.5px;letter-spacing:.18em;color:var(--tx3)}
+.sv-x{padding:7px 14px;border-radius:9px;border:1px solid var(--line2);color:var(--tx2);
+  font-size:12px;background:rgba(8,14,26,.6);transition:.15s}
+.sv-x:hover{color:var(--tx);border-color:var(--acc)}
+
+/* ── STABLE rail (left) ── */
+/* ── STABLE rail (left) — panelled so it stays legible over any colour ── */
+/* the COLUMN is positioned; the panels inside it just stack */
+.sv-leftcol{position:absolute;left:24px;top:132px;width:250px;
+  display:flex;flex-direction:column;gap:12px;
+  /* Anchored top AND bottom so it structurally cannot reach the band
+     (88px tall, 26px off the bottom, plus a 16px gap). overflow:hidden is
+     the safety net: even if a row-count breakpoint below is wrong, the
+     panel can never paint over the band. */
+  bottom:130px;overflow:hidden}
+.sv-rail{padding:12px 15px;border-radius:14px;
+  background:linear-gradient(165deg,rgba(11,18,32,.9),rgba(7,11,20,.82));
+  border:1px solid var(--line);backdrop-filter:blur(7px)}
+.sv-rlbl{font:600 9.5px/1 system-ui;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--tx3);margin:0 0 8px}
+/* must fit 13 digits plus separators inside the rail — do not enlarge */
+.sv-rate{display:flex;gap:14px;margin:14px 0 24px;padding-bottom:18px;
+  border-bottom:1px solid var(--line)}
+.sv-rate li b{display:block;font:700 13px var(--mono)}
+.sv-rate li span{font-size:9.5px;color:var(--tx3);letter-spacing:.04em}
+.sv-rate .up{color:var(--up)}
+.sv-today li{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;
+  border-bottom:1px dashed rgba(var(--w),.07)}
+.sv-today span{font-size:11.5px;color:var(--tx2)}
+.sv-today b{font:700 15px var(--mono)}
+.sv-today .up{color:var(--up)}
+.sv-tuned{margin-top:20px;padding:12px 14px;border-radius:11px;
+  background:rgba(34,211,238,.07);border:1px solid rgba(34,211,238,.2);font-size:11px;color:var(--tx2)}
+.sv-tuned b{display:block;font:700 21px var(--mono);color:var(--acc2)}
+.sv-tuned em{display:block;font-style:normal;font-size:10px;color:var(--tx3);margin-top:5px}
+
+/* ── ROTATING segment card ── */
+/* The RESTING state is visible; the animation only decorates the entrance. If
+   frames never arrive (reduced-motion, throttling) the card must still show. */
+.sv-card{position:absolute;left:296px;bottom:132px;width:min(548px,38vw);
+  padding:22px 24px;border-radius:18px;
+  background:linear-gradient(165deg,rgba(11,18,32,.93),rgba(7,11,20,.88));
+  border:1px solid var(--line2);box-shadow:0 24px 70px rgba(0,0,0,.6);
+  backdrop-filter:blur(9px)}
+.sv-card.in{animation:svCardIn .7s cubic-bezier(.22,1,.36,1)}
+@keyframes svCardIn{from{opacity:0;transform:translateY(16px)}}
+@media (prefers-reduced-motion: reduce){
+  .sv-card.in{animation:none}
+  .sv-live i{animation:none}
+}
+.sv-eyebrow{font:600 9.5px/1 system-ui;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--acc2);margin-bottom:10px}
+.sv-card h2{font:650 clamp(19px,2.1vw,26px)/1.18 system-ui;letter-spacing:-.02em}
+.sv-t2{margin-bottom:12px}
+.sv-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.sv-head p{font-size:11.5px;color:var(--tx3);margin-top:4px}
+.sv-head .flimg{width:46px;border-radius:5px}
+.sv-head .flcode{min-width:46px;height:32px;font-size:13px;border-radius:5px}
+.sv-moon{font-size:34px;line-height:1}
+.sv-hero{font:700 clamp(26px,3.3vw,40px)/1 var(--mono);letter-spacing:-.02em;margin:4px 0 10px;
+  background:linear-gradient(92deg,#fff,#8ff3ff 72%);-webkit-background-clip:text;
+  background-clip:text;color:transparent}
+.sv-hero em{display:block;font:400 11px/1 system-ui;font-style:normal;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--tx3);margin-top:9px;-webkit-text-fill-color:var(--tx3)}
+.sv-hero.sv-mid{font-size:clamp(34px,4.4vw,54px)}
+.sv-lead{font-size:13.5px;color:var(--tx2);line-height:1.65}
+.sv-note{font-size:11.5px;color:var(--tx3);line-height:1.6;margin-top:11px;
+  border-top:1px solid var(--line);padding-top:10px}
+.sv-kv{display:grid;grid-template-columns:1fr 1fr;gap:2px 18px;margin-top:12px}
+.sv-kv li{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;
+  border-bottom:1px dashed rgba(var(--w),.07)}
+.sv-kv span{font-size:11px;color:var(--tx3)}
+.sv-kv b{font:600 13px var(--mono)}
+.sv-spark{width:100%;height:44px;display:block;margin:2px 0 4px}
+.sv-spark polyline{fill:none;stroke:var(--acc2);stroke-width:1.7;
+  stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(34,211,238,.5))}
+.sv-spark circle{fill:#fff}
+.sv-sparklbl{font-style:normal;font-size:9.5px;letter-spacing:.12em;color:var(--tx3)}
+
+.sv-duel{display:flex;align-items:center;gap:14px;margin:6px 0 4px}
+.sv-duel.tight{gap:10px}
+.sv-dcell{flex:1;text-align:center;padding:12px 8px;border-radius:12px;
+  background:rgba(var(--w),.045);border:1px solid var(--line)}
+.sv-dcell .flimg{width:40px;border-radius:4px;margin-bottom:6px}
+.sv-dcell .flcode{min-width:40px;height:28px;font-size:12px;margin-bottom:6px}
+.sv-dcell b{display:block;font-size:12.5px;margin-bottom:5px}
+.sv-dcell span{font:700 16px var(--mono);color:var(--acc2)}
+.sv-dcell span.up{color:var(--up)}
+.sv-dvs{font:700 12px var(--mono);color:var(--tx3);letter-spacing:.1em}
+
+.sv-bars{display:flex;flex-direction:column;gap:5px;margin-top:4px}
+.sv-bars li{position:relative;display:flex;align-items:center;gap:9px;padding:7px 10px;
+  border-radius:8px;background:rgba(var(--w),.04);overflow:hidden}
+.sv-bars i{position:absolute;left:0;top:0;bottom:0;z-index:0;
+  background:linear-gradient(90deg,rgba(34,211,238,.3),rgba(34,211,238,.06))}
+.sv-bars .sv-bn,.sv-bars .flimg,.sv-bars .flcode,.sv-bars .sv-bl,.sv-bars .sv-bv{position:relative;z-index:1}
+.sv-bn{font:700 10px var(--mono);color:var(--tx3);width:14px}
+.sv-bars .flimg{width:22px;border-radius:3px}
+.sv-bars .flcode{min-width:22px;height:15px;font-size:8px;border-radius:3px}
+.sv-bl{flex:1;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sv-bv{font:700 12.5px var(--mono);color:var(--acc2)}
+
+.sv-two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+.sv-mv li{display:flex;align-items:center;gap:7px;padding:6px 0;
+  border-bottom:1px dashed rgba(var(--w),.07);font-size:11.5px}
+.sv-mv .flimg{width:20px;border-radius:3px}
+.sv-mv .flcode{min-width:20px;height:14px;font-size:8px;border-radius:3px}
+.sv-mv li span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sv-mv li b{font:700 12px var(--mono)}
+.sv-mv li em{font-style:normal;font-size:9.5px;color:var(--tx3);min-width:64px;text-align:right}
+.sv-mv.up li b{color:var(--up)} .sv-mv.dn li b{color:var(--down)}
+
+/* ── up next ── */
+/* needs its own backdrop like every other cluster: bare text over a bright
+   choropleth is unreadable */
+.sv-next{position:absolute;right:20px;top:56px;width:336px;text-align:right;
+  padding:6px 10px 5px;border-radius:10px;
+  background:linear-gradient(165deg,rgba(11,18,32,.9),rgba(7,11,20,.82));
+  border:1px solid var(--line);backdrop-filter:blur(7px)}
+.sv-nline{display:flex;align-items:baseline;justify-content:flex-end;gap:7px;
+  white-space:nowrap;overflow:hidden}
+.sv-nline b{font-size:11px;color:var(--tx);font-weight:650}
+.sv-nline i{font-style:normal;font-size:10px;color:var(--tx3)}
+.sv-nlbl{font:600 8.5px/1 system-ui;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--acc2);flex:0 0 auto}
+.sv-nrow{padding:8px 11px;border-radius:9px;background:rgba(var(--w),.05);
+  border:1px solid var(--line);margin-bottom:6px;font-size:11.5px}
+.sv-nrow.dim{opacity:.5}
+
+/* ── ticker + progress ── */
+.sv-progwrap{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(var(--w),.07)}
+.sv-progwrap i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,var(--acc),var(--acc2))}
+.sv-pausebadge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font:700 13px/1 system-ui;letter-spacing:.24em;text-transform:uppercase;color:#fff;
+  background:rgba(6,10,20,.9);border:1px solid var(--line2);border-radius:10px;padding:14px 26px}
+.sv-boot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;
+  color:var(--tx2);font-size:14px;display:flex;flex-direction:column;gap:14px;align-items:center}
+
+/* ── watch button in the header ── */
+.watchbtn{display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:11px;
+  font-size:13px;font-weight:600;color:var(--tx);background:rgba(var(--w),.06);
+  border:1px solid var(--line2);transition:.18s;white-space:nowrap}
+.watchbtn:hover{border-color:#dc2626;background:rgba(220,38,38,.12)}
+.watchbtn i{width:7px;height:7px;border-radius:50%;background:#dc2626;
+  box-shadow:0 0 9px rgba(220,38,38,.9);animation:svPulse 1.6s infinite}
+
+@media(max-width:1200px){
+  .sv-card{left:24px;width:min(520px,58vw)}
+  .sv-leftcol{top:126px;width:216px}
+  .sv-tops,.sv-next{display:none}
+}
+@media(max-width:820px){
+  .sv-card{left:14px;right:14px;width:auto;bottom:78px;padding:16px}
+  .sv-leftcol{left:14px;width:auto;right:14px;top:104px;max-height:none}
+  .sv-rail{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .sv-rate{margin:0;padding:0;border:0}
+  .sv-today,.sv-tuned,.sv-rlbl{display:none}
+  .sv-kv{grid-template-columns:1fr}
+}
+
+/* ── hero counter: the centrepiece. Sized to fit 13 digits + separators ── */
+.sv-hero-count{position:absolute;left:50%;top:12px;transform:translateX(-50%);text-align:center}
+.sv-hclbl{font:600 9.5px/1 system-ui;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--tx3);margin-bottom:7px}
+.sv-hcnum{font:700 clamp(28px,3.9vw,58px)/1 var(--mono);letter-spacing:-.03em;white-space:nowrap;
+  background:linear-gradient(92deg,#fff 8%,#8ff3ff 58%,#6ee7b7 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 3px 28px rgba(34,211,238,.42))}
+.sv-hcsub{display:flex;gap:14px;justify-content:center;align-items:baseline;margin-top:7px}
+.sv-hcsub b{font:700 14px var(--mono);color:#6ee7b7;
+  text-shadow:0 1px 10px rgba(0,0,0,.95),0 0 3px rgba(0,0,0,.9)}
+.sv-hcsub span{font-size:11.5px;color:#cfe0f5;
+  text-shadow:0 1px 10px rgba(0,0,0,.95),0 0 3px rgba(0,0,0,.9)}
+.sv-hclbl{text-shadow:0 1px 8px rgba(0,0,0,.9)}
+.sv-rlbl em{font-style:normal;color:var(--tx3);opacity:.65;margin-left:5px;letter-spacing:.1em}
+
+/* ── top-5 boards (right) ─────────────────────────────────────────
+   Five rows per board, sized to be read from across a room. The magnitude bar
+   behind each row carries the comparison visually so the digits are supporting
+   detail rather than the only signal. If you add rows back, shrink the type —
+   the "boards fit on screen" assertion will tell you immediately. */
+.sv-tops{position:absolute;right:20px;top:116px;width:336px;
+  display:flex;flex-direction:column;gap:9px}
+.sv-board{padding:11px 14px 9px;border-radius:14px;
+  background:linear-gradient(165deg,rgba(11,18,32,.93),rgba(7,11,20,.86));
+  border:1px solid var(--line);backdrop-filter:blur(7px)}
+.sv-blbl{display:flex;justify-content:space-between;align-items:baseline;gap:8px;
+  font:600 11.5px/1 system-ui;letter-spacing:.16em;text-transform:uppercase}
+.sv-blbl.up{color:var(--up)} .sv-blbl.dn{color:var(--down)}
+.sv-blbl span{font-size:9px;letter-spacing:.12em;color:var(--tx3);font-weight:600}
+.sv-bsub{font-size:8.5px;letter-spacing:.05em;color:var(--tx3);opacity:.75;
+  margin:4px 0 5px;text-transform:uppercase}
+
+.sv-tlist li{position:relative;padding:6px 9px 5px;border-radius:8px;overflow:hidden}
+.sv-tlist li+li{margin-top:4px}
+.sv-tlist li:nth-child(odd){background:rgba(var(--w),.04)}
+.sv-bar{position:absolute;left:0;top:0;bottom:0;z-index:0;border-radius:7px}
+.up~.sv-tlist .sv-bar,#svTopB .sv-bar{background:linear-gradient(90deg,rgba(52,211,153,.22),rgba(52,211,153,.03))}
+#svTopD .sv-bar{background:linear-gradient(90deg,rgba(248,113,113,.22),rgba(248,113,113,.03))}
+.sv-r1,.sv-r2{position:relative;z-index:1}
+.sv-r1{display:grid;grid-template-columns:16px 26px 1fr auto;align-items:center;gap:9px;
+  line-height:1.2}
+.sv-tn{font:700 11px var(--mono);color:var(--tx3);text-align:right}
+.sv-tlist .flimg{width:26px;border-radius:3px;display:block}
+.sv-tlist .flcode{min-width:26px;height:18px;font-size:9px;border-radius:3px}
+.sv-tl{font-size:15px;line-height:1.2;color:var(--tx);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em;font-weight:500}
+.sv-tlist b{font:700 21px/1.15 var(--mono);color:#fff;text-align:right;letter-spacing:-.02em}
+.sv-r2{display:flex;justify-content:space-between;align-items:baseline;gap:8px;
+  padding-left:51px;line-height:1.2;margin-top:3px}
+.sv-tp{font:500 11px/1.2 var(--mono);color:var(--tx3);letter-spacing:-.01em}
+.sv-td{font-style:normal;font:700 11.5px/1.2 var(--mono)}
+.sv-td.up{color:#6ee7b7} .sv-td.dn{color:#fca5a5}
+
+/* ── zoom controls + manual-camera chip ── */
+.sv-zoom{position:absolute;left:24px;bottom:132px;display:flex;flex-direction:column;gap:6px}
+.sv-zoom button{width:38px;height:38px;border-radius:10px;border:1px solid var(--line2);
+  background:rgba(8,14,26,.82);color:var(--tx);font:600 17px/1 var(--mono);
+  backdrop-filter:blur(6px);transition:.15s}
+.sv-zoom button:hover{border-color:var(--acc);color:var(--acc2);transform:translateY(-1px)}
+.sv-manual{position:absolute;left:50%;bottom:138px;transform:translateX(-50%);
+  padding:9px 17px;border-radius:999px;font-size:12px;font-weight:600;color:#04121a;
+  background:linear-gradient(95deg,var(--acc),var(--acc2));
+  box-shadow:0 4px 22px rgba(34,211,238,.45);animation:svPop .3s ease}
+.sv-manual[hidden]{display:none!important}
+@keyframes svPop{from{opacity:0;transform:translate(-50%,8px)}}
+.sv-hint{margin-top:5px;font-size:8.5px;line-height:1.7;color:var(--tx3);text-align:right}
+.sv-hint kbd{font:9px var(--mono);background:rgba(var(--w),.07);border:1px solid var(--line2);
+  border-radius:4px;padding:2px 5px;margin-right:4px;color:var(--tx2)}
+
+/* the map is interactive in stream mode, so it must receive pointer events */
+body.stream-on .mapstage{cursor:grab}
+body.stream-on.sv-idle .mapstage{cursor:none}
+
+/* ── "so far today": the headline stat of the whole rail, so it gets real size ── */
+.sv-day{margin:1px 0 8px}
+.sv-dayrow{display:flex;align-items:center;gap:8px}
+.sv-dayico{font-size:13px;line-height:1;filter:drop-shadow(0 1px 4px rgba(0,0,0,.6))}
+.sv-dayrow b{display:block;font:700 clamp(13px,.95vw,14px)/1 var(--mono);letter-spacing:-.02em}
+.sv-dayrow.born b{color:#6ee7b7}
+.sv-dayrow.died b{color:#fca5a5}
+.sv-dayrow em{display:block;font-style:normal;font-size:9px;color:var(--tx3);margin-top:3px;
+  letter-spacing:.04em}
+.sv-dayrow em span{color:var(--tx2);font-family:var(--mono)}
+.sv-daybar{display:flex;height:4px;border-radius:3px;overflow:hidden;margin:6px 0;
+  background:rgba(var(--w),.06)}
+.sv-daybar i{display:block;height:100%;transition:width .4s ease}
+.sv-daybar i.b{background:linear-gradient(90deg,#34d399,#6ee7b7)}
+.sv-daybar i.d{background:linear-gradient(90deg,#f87171,#fca5a5)}
+.sv-daynet{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-top:8px;
+  padding-top:7px;border-top:1px solid var(--line)}
+/* the label now wraps to two lines: it says what the figure MEANS, which is
+   worth more than keeping it on one line */
+.sv-daynet span{font-size:10px;line-height:1.35;color:var(--tx3);letter-spacing:.03em;
+  max-width:126px}
+.sv-daynet b{font:700 14px var(--mono);color:var(--acc2);white-space:nowrap}
+.sv-dayratio{margin-top:5px;font-size:9px;line-height:1.4;color:var(--tx3)}
+.sv-rate{display:flex;gap:10px;margin:0 0 9px;padding-bottom:8px;
+  border-bottom:1px solid var(--line)}
+
+.sv-blbl{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.sv-blbl span{font-size:8px;letter-spacing:.1em;color:var(--tx3);font-weight:600}
+
+/* ── "Rest of the world" band ─────────────────────────────────────
+   Sits along the bottom, stopping short of the board column. Pages with a fade
+   instead of scrolling: a continuous marquee is unreadable, which is why the
+   original ticker was removed. The diverging bar reads outward from a centre
+   line — right and green for growth, left and red for decline — so a whole page
+   of countries can be compared without reading a single digit. */
+.sv-bandwrap{position:absolute;left:20px;right:376px;bottom:26px;
+  padding:9px 14px 11px;border-radius:14px;
+  background:linear-gradient(165deg,rgba(11,18,32,.93),rgba(7,11,20,.86));
+  border:1px solid var(--line);backdrop-filter:blur(7px)}
+.sv-bandlbl{font:600 10px/1 system-ui;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--acc2);margin-bottom:9px}
+.sv-bandlbl em{font-style:normal;letter-spacing:.06em;color:var(--tx3);
+  text-transform:none;font-size:9.5px;margin-left:8px}
+.sv-bandrow{display:flex;gap:10px}
+.sv-bandrow.in{animation:svBandIn .55s ease}
+@keyframes svBandIn{from{opacity:0;transform:translateY(5px)}}
+.sv-cell{flex:1 1 0;min-width:0}
+.sv-ctop{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.sv-ctop .flimg{width:19px;border-radius:2px;flex:0 0 19px}
+.sv-ctop .flcode{min-width:19px;height:13px;font-size:7px;border-radius:2px;flex:0 0 19px}
+.sv-ctop span{font-size:11.5px;color:var(--tx);white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis}
+.sv-track{position:relative;height:7px;border-radius:4px;
+  background:rgba(var(--w),.055);overflow:hidden}
+.sv-track i{position:absolute;top:0;bottom:0;display:block}
+.sv-track i.pos{background:linear-gradient(90deg,#34d399,#6ee7b7);border-radius:0 4px 4px 0}
+.sv-track i.neg{background:linear-gradient(270deg,#f87171,#fca5a5);border-radius:4px 0 0 4px}
+.sv-track u{position:absolute;left:50%;top:0;bottom:0;width:1px;
+  background:rgba(var(--w),.28)}
+.sv-cbot{display:flex;justify-content:space-between;align-items:baseline;gap:6px;margin-top:5px}
+.sv-bp{font:500 9.5px/1.2 var(--mono);color:var(--tx3)}
+.sv-bd{font:700 10.5px/1.2 var(--mono)}
+
+@media(max-width:1200px){ .sv-bandwrap{display:none} }
+
+/* ── largest populations, left column under the rail ─────────────────
+   Same panelled treatment as the rail so it stays legible over any choropleth
+   colour. Single-line rows: at 250px wide the 13-digit figure needs ~80px, so
+   the name gets ~100px — hence the abbreviations in BIG_SHORT.
+   The live figures come free from the shared `sv-tp` hook in paintRail(). */
+.sv-big{padding:12px 15px 14px;
+  border-radius:14px;background:linear-gradient(165deg,rgba(11,18,32,.9),rgba(7,11,20,.82));
+  border:1px solid var(--line);backdrop-filter:blur(7px)}
+.sv-biglist{display:flex;flex-direction:column;gap:2px}
+.sv-biglist li{position:relative;display:flex;align-items:center;gap:4px;
+  padding:5px 6px;border-radius:7px;overflow:hidden}
+/* one focal point, consistent with the strip in explore mode */
+.sv-biglist li.lead{background:rgba(34,211,238,.13);
+  box-shadow:inset 0 0 0 1px rgba(34,211,238,.32)}
+.sv-bigbar{position:absolute;left:0;top:0;bottom:0;z-index:0;
+  background:linear-gradient(90deg,rgba(34,211,238,.26),rgba(34,211,238,.04));
+  border-radius:7px}
+.sv-biglist li > :not(.sv-bigbar){position:relative;z-index:1}
+.sv-bgn{width:9px;font:700 8.5px var(--mono);color:var(--tx3);text-align:right;flex:0 0 auto}
+.sv-biglist .flimg{width:15px;border-radius:2px;flex:0 0 15px;display:block}
+.sv-biglist .flcode{min-width:15px;height:11px;font-size:6.5px;border-radius:2px;flex:0 0 15px}
+.sv-bgl{flex:1;min-width:0;font-size:11px;color:var(--tx);font-weight:500;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sv-pp{font:700 15px var(--mono);font-variant-numeric:tabular-nums;
+  white-space:nowrap;flex:0 0 auto;letter-spacing:-.03em;
+  background:linear-gradient(92deg,#fff 35%,#8ff3ff);-webkit-background-clip:text;
+  background-clip:text;color:transparent}
+
+/* Vertical room is finite: the rail above and the band below both have priority,
+   so drop whole rows rather than clip one in half.
+   MEASURED, never guessed. Taken from the live layout at two viewport sizes:
+     row 28px + 2px gap = 30.0px per row
+     panel label + padding = 45.5px
+     fixed chrome above/below (header, rail, band, gaps) = 651px
+   so n rows need innerHeight >= 651 + n x 30.0 (+10px margin).
+   NOTE innerHeight is ~92px less than the OS window height, so calibrate against
+   innerHeight — a 1080px window is 988 CSS px.
+   Re-measure with measure_col.py after ANY size change in this panel. */
+@media(max-height:960px){ .sv-biglist li:nth-child(n+10){display:none} }
+@media(max-height:930px){ .sv-biglist li:nth-child(n+9){display:none} }
+@media(max-height:900px){ .sv-biglist li:nth-child(n+8){display:none} }
+@media(max-height:870px){ .sv-biglist li:nth-child(n+7){display:none} }
+@media(max-height:840px){ .sv-biglist li:nth-child(n+6){display:none} }
+@media(max-height:810px){ .sv-biglist li:nth-child(n+5){display:none} }
+/* below this the rail alone fills the column, exactly as .sv-tops is dropped on
+   narrow screens rather than squeezed into uselessness */
+@media(max-height:780px){ .sv-big{display:none} }
+@media(max-width:820px){ .sv-big{display:none} }

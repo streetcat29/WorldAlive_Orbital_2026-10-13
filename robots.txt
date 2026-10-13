@@ -1,0 +1,30 @@
+# Search rendering access; this file is not a security/access-control mechanism.
+User-agent: *
+Allow: /
+Disallow: /_
+Disallow: /data/
+
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /_
+Disallow: /data/
+Allow: /data/world.json$
+Allow: /data/born.json$
+Allow: /data/timeline.json$
+Allow: /data/cities_index.json$
+Allow: /data/countries-110m.json$
+Allow: /data/admin_terms.json$
+Allow: /data/city_slugs.json$
+Allow: /data/runtime/
+Allow: /data/cities/
+Allow: /data/world.json?*
+Allow: /data/born.json?*
+Allow: /data/timeline.json?*
+Allow: /data/cities_index.json?*
+Allow: /data/countries-110m.json?*
+Allow: /data/admin_terms.json?*
+Allow: /data/city_slugs.json?*
+
+Sitemap: https://www.theworldalive.com/sitemap.xml

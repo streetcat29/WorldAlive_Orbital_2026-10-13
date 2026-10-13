@@ -1,0 +1,35 @@
+# theworldalive.com v2
+ErrorDocument 404 /404.html
+<IfModule mod_rewrite.c>
+RewriteEngine On
+# v1 → v2 section renames (keep 12 months)
+RewriteRule ^country/(.*)$ /countries/$1 [R=301,L]
+RewriteRule ^city/(.*)$    /cities/$1 [R=301,L]
+RewriteRule ^region/(.*)$  /regions/$1 [R=301,L]
+# no trailing-slash → with slash for directories
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.*[^/])$ /$1/ [R=301,L]
+</IfModule>
+<IfModule mod_headers.c>
+# hashed assets (?v=) and cards can live long; html must not
+<FilesMatch "\.(js|css|png|jpg|webp|woff2|json)$">
+  Header set Cache-Control "public, max-age=604800, stale-while-revalidate=86400"
+</FilesMatch>
+<FilesMatch "\.(html)$">
+  Header set Cache-Control "public, max-age=300, must-revalidate"
+</FilesMatch>
+<FilesMatch "sitemap\.xml|robots\.txt">
+  Header set Cache-Control "public, max-age=3600"
+</FilesMatch>
+Header set X-Content-Type-Options "nosniff"
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+# the widget must be embeddable everywhere; the rest of the site should not be framed
+<FilesMatch "widget\.html$">
+  Header unset X-Frame-Options
+  Header set Content-Security-Policy "frame-ancestors *"
+</FilesMatch>
+</IfModule>
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml application/xml
+</IfModule>
+AddType application/manifest+json .webmanifest
