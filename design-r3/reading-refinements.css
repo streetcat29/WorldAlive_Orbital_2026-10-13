@@ -1,0 +1,131 @@
+/* Orbital reading + clarity refinement, 13 October 2026.
+   Atlas contributes measure, space and editorial hierarchy, not its paper palette.
+   Loaded last; scoped to Learn/Orbital. No map scales, scoring or Watch changes. */
+.wa-learn{--learn-bg:#0b1018;--learn-panel:#111b27;--learn-text:#eef0ed;--learn-muted:#b6c3cd;--learn-link:#ffbc97;--learn-line:#3b5061;--learn-accent:#ffb38a;font-size:18px;line-height:1.85}
+html[data-theme=light] .wa-learn{--learn-bg:#edf1f2;--learn-panel:#e2e9ed;--learn-text:#122832;--learn-muted:#405866;--learn-link:#85401f;--learn-line:#a0b4c0;--learn-accent:#85401f}
+.wa-learn main:has(>.learn-breadcrumb){max-width:1120px;padding:38px 32px 80px}
+.wa-learn article{display:grid;grid-template-columns:210px minmax(0,720px);column-gap:48px;align-items:start}
+.wa-learn article>.learn-article-header{grid-column:2;padding:0 0 32px;border-bottom:1px solid var(--learn-line);margin-bottom:32px}
+.wa-learn article>.learn-article-header h1{font-size:clamp(34px,3.6vw,50px);font-weight:650;line-height:1.13;letter-spacing:-.035em;max-width:24ch;margin:12px 0 22px;text-wrap:balance}
+.wa-learn article .learn-dek{font-size:21px;line-height:1.7;max-width:60ch;margin-bottom:24px}
+.wa-learn .learn-breadcrumb{font-size:14px;line-height:1.7;margin-bottom:28px}
+.wa-learn article>.learn-prose,.wa-learn article>.learn-next,.wa-learn article>.learn-sources{grid-column:2;min-width:0}
+.wa-learn .learn-prose>section{margin:0 0 40px}
+.wa-learn article h2{font-size:27px;line-height:1.3;font-weight:650;letter-spacing:-.02em;margin:0 0 18px;scroll-margin-top:24px}
+.wa-learn article p{margin:0 0 22px;max-width:68ch}
+.wa-learn article .learn-meta,.wa-learn article .learn-disclosure,.wa-learn article .learn-source,.wa-learn article .learn-small{font-size:14px;line-height:1.8;color:var(--learn-muted)}
+.wa-learn article .learn-kicker{font-size:13px;line-height:1.6;margin:0 0 14px}
+.wa-learn article .learn-disclosure{padding:8px 0 8px 16px;margin:16px 0 0;border-left:2px solid var(--learn-accent)}
+.wa-learn .orbital-toc{grid-column:1;grid-row:2;position:sticky;top:28px;align-self:start;border-top:2px solid var(--learn-accent);padding-top:18px;font-size:14px;line-height:1.65}
+.wa-learn .orbital-toc .orbital-toc-title{font-size:16px;letter-spacing:0;margin:0 0 12px}
+.wa-learn .orbital-toc ol{list-style:none;margin:0;padding:0}
+.wa-learn .orbital-toc li{margin:0 0 9px}
+.wa-learn .orbital-toc a{display:block;padding:7px 0;text-decoration:none;color:var(--learn-muted)}
+.wa-learn .orbital-toc a:hover{color:var(--learn-link);text-decoration:underline}
+.wa-learn article .learn-evidence{margin:32px 0 44px;padding:24px;border:1px solid var(--learn-line);border-radius:12px;background:var(--learn-panel)}
+.wa-learn article figcaption{font-size:19px;line-height:1.5;margin:0 0 18px}
+.wa-learn article table{font-size:14px;line-height:1.7;min-width:540px}
+.wa-learn article th,.wa-learn article td{padding:13px 14px}
+.wa-learn article .learn-source{margin:20px 0 0}
+.wa-learn article .learn-exercise,.wa-learn article .learn-takeaway{padding:24px;border-radius:10px;border-left:3px solid var(--learn-accent);background:var(--learn-panel)}
+.wa-learn article :is(.learn-exercise,.learn-takeaway) p:last-child{margin-bottom:0}
+.wa-learn article summary{font-size:16px;line-height:1.6;min-height:48px;padding:14px 2px}
+.wa-learn article details[open] p{padding:8px 2px}
+.wa-learn article .learn-sources,.wa-learn article .learn-next{padding-top:30px;margin-top:12px;font-size:16px;line-height:1.85}
+.wa-learn .learn-footer{font-size:14px;line-height:1.8}
+/* The Learn directory can be wider; prose inside it still has a reading measure. */
+body.wa-learn.r3.r2-learn main{max-width:1240px;padding:0 36px 64px}
+body.wa-learn.r3.r2-learn .learn-article-header{grid-template-columns:minmax(0,1fr) 260px;padding:40px 0;gap:12px 44px}
+body.wa-learn.r3.r2-learn .learn-article-header h1{font-size:clamp(34px,3.8vw,52px);line-height:1.15;max-width:24ch;margin:0 0 16px;letter-spacing:-.035em}
+body.wa-learn.r3.r2-learn .learn-article-header>.r2-earth{width:100%;max-height:240px}
+body.wa-learn.r3.r2-learn .learn-dek{font-size:18px;line-height:1.8;max-width:62ch}
+body.wa-learn.r3.r2-learn :is(.learn-meta,.learn-disclosure,.learn-kicker){font-size:14px;line-height:1.75}
+body.wa-learn.r3.r2-learn main>section{margin-top:42px}
+body.wa-learn.r3.r2-learn .learn-paths{gap:20px}
+body.wa-learn.r3.r2-learn .learn-path{padding:26px!important}
+body.wa-learn.r3.r2-learn .learn-path h3{font-size:23px;line-height:1.35;margin-bottom:20px}
+body.wa-learn.r3.r2-learn .learn-path :is(p,li){font-size:16px;line-height:1.8}
+body.wa-learn.r3.r2-learn .learn-reading-list>li{grid-template-columns:44px minmax(0,1fr);gap:8px 24px;padding:28px 0;align-items:start}
+body.wa-learn.r3.r2-learn .learn-reading-list>li::before{grid-row:1/3;font-size:22px;color:var(--learn-accent)}
+body.wa-learn.r3.r2-learn .learn-reading-list h3{font-size:23px;line-height:1.35;max-width:55ch}
+body.wa-learn.r3.r2-learn .learn-reading-list p{grid-column:2;font-size:17px;line-height:1.8;max-width:68ch}
+body.wa-learn.r3.r2-learn main>section>p,body.wa-learn.r3.r2-learn .learn-takeaway p{max-width:68ch;font-size:18px;line-height:1.85}
+body.wa-learn.r3.r2-learn .learn-takeaway{padding:28px;border-left:3px solid var(--learn-accent);background:var(--r2-surface);border-radius:12px}
+/* Compact invitation: bring the actual opening question forward. */
+body.r3.r2-play .r2-play-hero{padding:24px 0;gap:32px;grid-template-columns:minmax(0,.8fr) minmax(0,1.25fr)}
+body.r3.r2-play .r2-play-copy h1{font-size:clamp(34px,3.5vw,50px)!important;line-height:1.12!important;letter-spacing:-.04em!important;max-width:17ch;margin:0 0 16px!important}
+body.r3.r2-play .r2-play-copy .r2-sub{font-size:17px;line-height:1.65;max-width:38ch;margin-bottom:18px}
+body.r3.r2-play .r2-eyebrow{font-size:12px;margin-bottom:12px}
+body.r3.r2-play .orbital-opening-question{font:650 clamp(22px,2.2vw,29px)/1.25 'Segoe UI',sans-serif;letter-spacing:-.025em;color:#eef0ed;margin:14px 22px 8px}
+body.r3.r2-play .r2-arena-top{font-size:12px;line-height:1.5;flex-wrap:wrap;gap:6px 16px;padding-top:16px}
+body.r3.r2-play .r2-duel-side img{height:clamp(132px,13vw,205px)}
+body.r3.r2-play .r2-duel-side small{font-size:12px;line-height:1.6;letter-spacing:.03em}
+body.r3.r2-play .r2-duel-side .r2-pop-caption{font-size:14px;line-height:1.6;letter-spacing:0}
+body.r3.r2-play .r2-arena-foot{gap:12px;flex-wrap:wrap}
+body.r3.r2-play .r2-arena-foot span{font-size:14px;line-height:1.6;max-width:36ch;flex:1 1 180px}
+body.r3.r2-play .r2-arena-foot button{font-size:14px;min-height:44px}
+body.r3 :is(.r2-micro,.r2-footer,.r2-note){font-size:14px;line-height:1.8;color:var(--r2-muted)}
+body.r3 .r2-quiet{font-size:14px;display:inline-flex;min-height:44px;align-items:center}
+body.r3 .r2-mode :is(p,.r2-mode-link){font-size:15px;line-height:1.7}
+body.r3 .r2-mode .r2-n,body.r3 .r2-section-head>span{font-size:12px}
+/* Explicit population prompt stays with the actual choice buttons, across rounds. */
+body.r3 .gamewrap .gm-ask{font-size:16px;line-height:1.55;color:var(--pd-paper)}
+body.r3 .gamewrap .gm-question{display:block;font:650 21px/1.3 'Segoe UI',sans-serif;margin:0 0 7px;color:var(--pd-paper)}
+body.r3 .gamewrap .gm-question-detail{display:block;font-size:15px;color:var(--pd-muted)}
+body.r3 .gamewrap .gm-choice-note{display:block;font-size:14px;line-height:1.6;color:var(--pd-muted);margin-top:7px}
+body.r3 .gamewrap :is(.gm-lbl,.gm-foot,.qz-src,.r2-map-caption,.gm-your-choice){font-size:14px;line-height:1.7;letter-spacing:0}
+body.r3 .gamewrap .gm-kind,body.r3 .gamewrap .gm-kind span{font-size:13px;line-height:1.55;letter-spacing:0}
+body.r3 .gamewrap .gm-choices{width:100%;max-width:390px}
+body.r3 .gamewrap .gm-btn{font-size:16px;min-height:48px}
+/* Source labels become readable without altering the population hero or map scales. */
+body.r3.r4-counter #worldCounter .wa-trust,body.r3.r4-counter #worldCounter .wc-sub,body.r3.r4-counter #worldCounter .status{font-size:14px;line-height:1.7}
+body.r3.r4-counter #worldCounter .wa-trust{max-width:100%;white-space:normal}
+body.r3.r2-compare :is(#cmpHint,.r2-country small,#cmpOut>p.muted){font-size:14px;line-height:1.75}
+body.r3.r2-sixty .teaser p{font-size:15px;line-height:1.75}
+html[data-theme=light] body.r3.r2-play .orbital-opening-question{color:var(--r2-ink)}
+@media(max-width:1000px){
+ .wa-learn article{grid-template-columns:1fr;max-width:720px;margin:auto}
+ .wa-learn article>:is(.learn-article-header,.learn-prose,.learn-next,.learn-sources,.orbital-toc){grid-column:1}
+ .wa-learn .orbital-toc{position:static;grid-row:auto;margin:0 0 36px;padding:20px;border:1px solid var(--learn-line);border-radius:10px;background:var(--learn-panel)}
+ .wa-learn .orbital-toc ol{columns:2;column-gap:28px}.wa-learn .orbital-toc li{break-inside:avoid}
+ body.wa-learn.r3.r2-learn .learn-paths{grid-template-columns:1fr;display:grid}
+}
+@media(max-width:760px){
+ .wa-learn{font-size:17px;line-height:1.8}
+ .wa-learn main:has(>.learn-breadcrumb){padding:24px 20px 52px}
+ .wa-learn article>.learn-article-header{padding-bottom:22px;margin-bottom:24px}
+ .wa-learn article>.learn-article-header h1{font-size:34px;line-height:1.16;letter-spacing:-.03em}
+ .wa-learn article .learn-dek{font-size:19px;line-height:1.7}
+ .wa-learn article h2{font-size:25px;line-height:1.35}
+ .wa-learn article .learn-evidence,.wa-learn article .learn-exercise,.wa-learn article .learn-takeaway{padding:18px}
+ .wa-learn .orbital-toc ol{columns:1}.wa-learn .orbital-toc a{min-height:44px;padding:10px 0}
+ body.wa-learn.r3.r2-learn main{padding:0 20px 48px}
+ body.wa-learn.r3.r2-learn .learn-article-header{grid-template-columns:1fr;padding:28px 0;gap:10px}
+ body.wa-learn.r3.r2-learn .learn-article-header h1{font-size:36px;max-width:24ch}
+ body.wa-learn.r3.r2-learn .learn-article-header>.r2-earth{grid-column:1;grid-row:auto;width:160px;max-height:160px;margin:8px 0 0;justify-self:center}
+ body.wa-learn.r3.r2-learn .learn-reading-list>li{grid-template-columns:28px minmax(0,1fr);gap:8px 14px}
+ body.wa-learn.r3.r2-learn .learn-reading-list h3{font-size:21px}
+ body.wa-learn.r3.r2-learn .learn-path{padding:22px!important}
+ body.r3.r2-play .r2-play-hero{display:flex;gap:18px;padding:20px 0;align-items:stretch}
+ body.r3.r2-play .r2-play-copy h1{font-size:34px!important;line-height:1.1!important;max-width:19ch;margin-bottom:10px!important}
+ body.r3.r2-play .r2-play-copy h1 span{display:inline}
+ body.r3.r2-play .r2-play-copy .r2-sub{font-size:16px;line-height:1.6;margin-bottom:10px;max-width:42ch}
+ body.r3.r2-play .r2-eyebrow{font-size:12px;margin-bottom:8px}
+ body.r3.r2-play .r2-micro{font-size:14px;line-height:1.7;margin:8px 0 0}
+ body.r3.r2-play .r2-arena-top{padding:12px 14px 0;font-size:12px}
+ body.r3.r2-play .orbital-opening-question{font-size:23px;margin:12px 14px 6px}
+ body.r3.r2-play .r2-duel-side{padding:8px 10px 14px}
+ body.r3.r2-play .r2-duel-side img{height:112px}
+ body.r3.r2-play .r2-duel-side h2{font-size:21px}
+ body.r3.r2-play .r2-arena-foot{padding:12px 14px}
+ body.r3.r2-play .r2-arena-foot span{max-width:none}
+ body.r3 .gamewrap .gm-question{font-size:20px}
+ body.r3 .gamewrap .gm-ask b{margin-left:0}
+ body.r3 .gamewrap .r2-map-caption{font-size:14px;line-height:1.6;max-width:100%}
+}
+@media print{
+ .wa-learn article{display:block;max-width:none}.wa-learn .orbital-toc{display:none}
+ .wa-learn main:has(>.learn-breadcrumb){max-width:none;padding:0}
+ .wa-learn{--learn-bg:white;--learn-panel:white;--learn-text:black;--learn-muted:#333;--learn-link:#111;--learn-line:#999;--learn-accent:#444;font-size:10.5pt;background:white!important}
+ .wa-learn article p{max-width:none}.wa-learn article .learn-table{overflow:visible}.wa-learn article table{min-width:0}
+}
